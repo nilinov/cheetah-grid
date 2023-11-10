@@ -18180,7 +18180,9 @@ function iconOf(icon) {
     return new InlineImage_1.InlineImage({
       src: icon.src,
       width: icon.width,
-      height: icon.width
+      height: icon.width,
+      imageTop: icon.offsetTop,
+      imageLeft: icon.offsetLeft
     });
   }
 

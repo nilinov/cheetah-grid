@@ -20660,7 +20660,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
               return new InlineImage_1.InlineImage({
                 src: icon.src,
                 width: icon.width,
-                height: icon.width
+                height: icon.width,
+                imageTop: icon.offsetTop,
+                imageLeft: icon.offsetLeft
               });
             }
 

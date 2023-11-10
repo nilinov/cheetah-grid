@@ -1,4 +1,3 @@
-import { DG_EVENT_TYPE } from "../../../js/core/DG_EVENT_TYPE";
 import { getSmallDialogInputEditorStateId } from "../../internal/symbolManager";
 import { obj } from "../../internal/utils";
 import type {
@@ -169,7 +168,7 @@ export class SmallDialogInputEditor<T> extends BaseInputEditor<T> {
 
     return [
       ...super.bindGridEvent(grid, cellId),
-      grid.listen(DG_EVENT_TYPE.CLICK_CELL, (cell) => {
+      grid.listen('click_cell', (cell) => {
         if (!isTarget(cell.col, cell.row)) {
           return;
         }

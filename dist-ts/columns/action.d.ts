@@ -7,7 +7,7 @@ import { Editor } from "./action/Editor";
 import { InlineInputEditor } from "./action/InlineInputEditor";
 import { InlineMenuEditor } from "./action/InlineMenuEditor";
 import { RadioEditor } from "./action/RadioEditor";
-import { SmallDialogInputEditor } from "./action/SmallDialogInputEditor";
+import { SmallDialogInputEditor } from "./action/SampleDialogInputEditor";
 declare class ImmutableCheckEditor extends CheckEditor<any> {
     get disabled(): RecordBoolean;
     get readOnly(): RecordBoolean;

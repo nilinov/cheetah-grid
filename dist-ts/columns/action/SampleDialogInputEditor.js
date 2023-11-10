@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SmallDialogInputEditor = void 0;
-const DG_EVENT_TYPE_1 = require("../../../js/core/DG_EVENT_TYPE");
 const symbolManager_1 = require("../../internal/symbolManager");
 const utils_1 = require("../../internal/utils");
 const BaseInputEditor_1 = require("./BaseInputEditor");
@@ -125,7 +124,7 @@ class SmallDialogInputEditor extends BaseInputEditor_1.BaseInputEditor {
         }
         return [
             ...super.bindGridEvent(grid, cellId),
-            grid.listen(DG_EVENT_TYPE_1.DG_EVENT_TYPE.CLICK_CELL, (cell) => {
+            grid.listen('click_cell', (cell) => {
                 if (!isTarget(cell.col, cell.row)) {
                     return;
                 }

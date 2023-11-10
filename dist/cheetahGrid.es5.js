@@ -4911,14 +4911,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }
           });
 
-          var SmallDialogInputEditor_1 = __webpack_require__(
-          /*! ./action/SmallDialogInputEditor */
-          "./columns/action/SmallDialogInputEditor.js");
+          var SampleDialogInputEditor_1 = __webpack_require__(
+          /*! ./action/SampleDialogInputEditor */
+          "./columns/action/SampleDialogInputEditor.js");
 
           Object.defineProperty(exports, "SmallDialogInputEditor", {
             enumerable: true,
             get: function get() {
-              return SmallDialogInputEditor_1.SmallDialogInputEditor;
+              return SampleDialogInputEditor_1.SmallDialogInputEditor;
             }
           }); // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
@@ -4976,8 +4976,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           }(RadioEditor_1.RadioEditor); // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 
-          var ImmutableInputEditor = /*#__PURE__*/function (_SmallDialogInputEdit) {
-            _inherits(ImmutableInputEditor, _SmallDialogInputEdit);
+          var ImmutableInputEditor = /*#__PURE__*/function (_SampleDialogInputEdi) {
+            _inherits(ImmutableInputEditor, _SampleDialogInputEdi);
 
             var _super4 = _createSuper(ImmutableInputEditor);
 
@@ -5000,7 +5000,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }]);
 
             return ImmutableInputEditor;
-          }(SmallDialogInputEditor_1.SmallDialogInputEditor);
+          }(SampleDialogInputEditor_1.SmallDialogInputEditor);
 
           exports.ACTIONS = {
             CHECK: new ImmutableCheckEditor(),
@@ -6796,31 +6796,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         },
 
         /***/
-        "./columns/action/SmallDialogInputEditor.js":
-        /*!**************************************************!*\
-          !*** ./columns/action/SmallDialogInputEditor.js ***!
-          \**************************************************/
+        "./columns/action/SampleDialogInputEditor.js":
+        /*!***************************************************!*\
+          !*** ./columns/action/SampleDialogInputEditor.js ***!
+          \***************************************************/
 
         /*! no static exports found */
 
         /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 
         /***/
-        function columnsActionSmallDialogInputEditorJs(module, exports, __webpack_require__) {
+        function columnsActionSampleDialogInputEditorJs(module, exports, __webpack_require__) {
           "use strict";
 
           Object.defineProperty(exports, "__esModule", {
             value: true
           });
           exports.SmallDialogInputEditor = void 0;
-
-          var BaseInputEditor_1 = __webpack_require__(
-          /*! ./BaseInputEditor */
-          "./columns/action/BaseInputEditor.js");
-
-          var SmallDialogInputElement_1 = __webpack_require__(
-          /*! ./internal/SmallDialogInputElement */
-          "./columns/action/internal/SmallDialogInputElement.js");
 
           var symbolManager_1 = __webpack_require__(
           /*! ../../internal/symbolManager */
@@ -6829,6 +6821,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           var utils_1 = __webpack_require__(
           /*! ../../internal/utils */
           "./internal/utils.js");
+
+          var BaseInputEditor_1 = __webpack_require__(
+          /*! ./BaseInputEditor */
+          "./columns/action/BaseInputEditor.js");
+
+          var action_utils_1 = __webpack_require__(
+          /*! ./action-utils */
+          "./columns/action/action-utils.js");
+
+          var SmallDialogInputElement_1 = __webpack_require__(
+          /*! ./internal/SmallDialogInputElement */
+          "./columns/action/internal/SmallDialogInputElement.js");
 
           var _ = (0, symbolManager_1.getSmallDialogInputEditorStateId)();
 
@@ -6986,6 +6990,36 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
               key: "onSetInputAttrsInternal",
               value: function onSetInputAttrsInternal(grid, _cell, input) {
                 SmallDialogInputElement_1.SmallDialogInputElement.setInputAttrs(this, grid, input);
+              }
+            }, {
+              key: "bindGridEvent",
+              value: function bindGridEvent(grid, cellId) {
+                var _this29 = this;
+
+                var open = function open(cell) {
+                  if ((0, action_utils_1.isReadOnlyRecord)(_this29.readOnly, grid, cell.row) || (0, action_utils_1.isDisabledRecord)(_this29.disabled, grid, cell.row)) {
+                    return false;
+                  }
+
+                  _this29.onOpenCellInternal(grid, cell);
+
+                  return true;
+                };
+
+                function isTarget(col, row) {
+                  return grid.getLayoutCellId(col, row) === cellId;
+                }
+
+                return [].concat(_toConsumableArray(_get(_getPrototypeOf(SmallDialogInputEditor.prototype), "bindGridEvent", this).call(this, grid, cellId)), [grid.listen('click_cell', function (cell) {
+                  if (!isTarget(cell.col, cell.row)) {
+                    return;
+                  }
+
+                  open({
+                    col: cell.col,
+                    row: cell.row
+                  });
+                })]);
               }
             }]);
 
@@ -7310,7 +7344,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "attach",
               value: function attach(grid, editor, col, row, value) {
-                var _this29 = this;
+                var _this30 = this;
 
                 var input = this._input;
                 var handler = this._handler;
@@ -7377,7 +7411,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 });
                 this._attaching = true;
                 setTimeout(function () {
-                  delete _this29._attaching;
+                  delete _this30._attaching;
                 });
               }
             }, {
@@ -7441,7 +7475,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "_bindInputEvents",
               value: function _bindInputEvents() {
-                var _this30 = this;
+                var _this31 = this;
 
                 var handler = this._handler;
                 var input = this._input;
@@ -7469,15 +7503,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                   var keyCode = utils_1.event.getKeyCode(e);
 
                   if (keyCode === KEY_ENTER) {
-                    _this30._onKeydownEnter(e);
+                    _this31._onKeydownEnter(e);
                   } else if (keyCode === KEY_TAB) {
-                    _this30._onKeydownTab(e);
+                    _this31._onKeydownTab(e);
                   }
                 });
                 handler.on(input, "blur", function (_e) {
-                  _this30.doChangeValue();
+                  _this31.doChangeValue();
 
-                  _this30.detach();
+                  _this31.detach();
                 });
               }
             }, {
@@ -7737,7 +7771,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
           var InlineMenuElement = /*#__PURE__*/function () {
             function InlineMenuElement() {
-              var _this31 = this;
+              var _this32 = this;
 
               _classCallCheck(this, InlineMenuElement);
 
@@ -7754,7 +7788,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
               this._registerBodyClickListener = function () {
                 deregisterBodyClickListener();
-                bodyClickListenerId = handler.on(document.body, "click", _this31._onBodyClick.bind(_this31), {
+                bodyClickListenerId = handler.on(document.body, "click", _this32._onBodyClick.bind(_this32), {
                   capture: true
                 });
               };
@@ -7864,7 +7898,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "_bindMenuEvents",
               value: function _bindMenuEvents() {
-                var _this32 = this;
+                var _this33 = this;
 
                 var handler = this._handler;
                 var menu = this._menu;
@@ -7887,9 +7921,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
                   var valueindex = item.dataset.valueindex;
 
-                  _this32._doChangeValue(valueindex || "");
+                  _this33._doChangeValue(valueindex || "");
 
-                  _this32.detach(true);
+                  _this33.detach(true);
                 });
                 handler.on(menu, "keydown", function (e) {
                   var item = findItemParents(e.target);
@@ -7901,9 +7935,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                   var keyCode = utils_1.event.getKeyCode(e);
 
                   if (keyCode === KEY_ENTER) {
-                    _this32._onKeydownEnter(menu, item, e);
+                    _this33._onKeydownEnter(menu, item, e);
                   } else if (keyCode === KEY_ESC) {
-                    _this32.detach(true);
+                    _this33.detach(true);
 
                     utils_1.event.cancel(e);
                   } else if (keyCode === KEY_UP) {
@@ -7922,7 +7956,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                       utils_1.event.cancel(e);
                     }
                   } else if (keyCode === KEY_TAB) {
-                    _this32._onKeydownTab(menu, item, e);
+                    _this33._onKeydownTab(menu, item, e);
                   }
                 });
               }
@@ -8182,7 +8216,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "attach",
               value: function attach(grid, editor, col, row, value) {
-                var _this33 = this;
+                var _this34 = this;
 
                 var handler = this._handler;
                 var dialog = this._dialog;
@@ -8235,7 +8269,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 this._beforePropEditor = editor;
                 this._attaching = true;
                 setTimeout(function () {
-                  delete _this33._attaching;
+                  delete _this34._attaching;
                 });
               }
             }, {
@@ -8266,7 +8300,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "_doChangeValue",
               value: function _doChangeValue() {
-                var _this34 = this;
+                var _this35 = this;
 
                 if (!this._isActive()) {
                   return false;
@@ -8276,10 +8310,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 var value = input.value;
                 return (0, utils_1.then)(this._validate(value), function (res) {
                   if (res && value === input.value) {
-                    var _this34$_activeData = _this34._activeData,
-                        grid = _this34$_activeData.grid,
-                        col = _this34$_activeData.col,
-                        row = _this34$_activeData.row;
+                    var _this35$_activeData = _this35._activeData,
+                        grid = _this35$_activeData.grid,
+                        col = _this35$_activeData.col,
+                        row = _this35$_activeData.row;
                     grid.doChangeValue(col, row, function () {
                       return value;
                     });
@@ -8307,7 +8341,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "_bindDialogEvents",
               value: function _bindDialogEvents() {
-                var _this35 = this;
+                var _this36 = this;
 
                 var handler = this._handler;
                 var dialog = this._dialog;
@@ -8328,7 +8362,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 handler.on(input, "compositionend", function (_e) {
                   input.classList.remove("composition");
 
-                  _this35._onInputValue(input);
+                  _this36._onInputValue(input);
                 });
 
                 var onKeyupAndPress = function onKeyupAndPress(_e) {
@@ -8336,7 +8370,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                     return;
                   }
 
-                  _this35._onInputValue(input);
+                  _this36._onInputValue(input);
                 };
 
                 handler.on(input, "keyup", onKeyupAndPress);
@@ -8349,20 +8383,20 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                   var keyCode = utils_1.event.getKeyCode(e);
 
                   if (keyCode === KEY_ESC) {
-                    _this35.detach(true);
+                    _this36.detach(true);
 
                     utils_1.event.cancel(e);
                   } else if (keyCode === KEY_ENTER) {
-                    _this35._onKeydownEnter(e);
+                    _this36._onKeydownEnter(e);
                   } else {
-                    _this35._onInputValue(input);
+                    _this36._onInputValue(input);
                   }
                 });
               }
             }, {
               key: "_onKeydownEnter",
               value: function _onKeydownEnter(e) {
-                var _this36 = this;
+                var _this37 = this;
 
                 if (this._attaching) {
                   return;
@@ -8374,9 +8408,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                   var _a;
 
                   if (r && value === input.value) {
-                    var grid = _this36._isActive() ? _this36._activeData.grid : null;
+                    var grid = _this37._isActive() ? _this37._activeData.grid : null;
 
-                    _this36.detach(true);
+                    _this37.detach(true);
 
                     if ((_a = grid === null || grid === void 0 ? void 0 : grid.keyboardOptions) === null || _a === void 0 ? void 0 : _a.moveCellOnEnter) {
                       grid.onKeyDownMove(e);
@@ -9177,21 +9211,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "_bindGridEvent",
               value: function _bindGridEvent(grid, getMessage) {
-                var _this37 = this;
+                var _this38 = this;
 
                 var onSelectMessage = function onSelectMessage(sel) {
                   var setMessageData = function setMessageData(msg) {
                     if (!hasMessage(msg)) {
-                      _this37._detach();
+                      _this38._detach();
                     } else {
-                      _this37._attach(sel.col, sel.row, msg);
+                      _this38._attach(sel.col, sel.row, msg);
                     }
                   };
 
                   var message = getMessage(sel.col, sel.row);
 
                   if ((0, utils_1.isPromise)(message)) {
-                    _this37._detach();
+                    _this38._detach();
 
                     message.then(function (msg) {
                       var newSel = grid.selection.select;
@@ -9222,7 +9256,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 grid.listen(LG_EVENT_TYPE_1.LG_EVENT_TYPE.SCROLL, function () {
                   var sel = grid.selection.select;
 
-                  _this37._move(sel.col, sel.row);
+                  _this38._move(sel.col, sel.row);
                 });
                 grid.listen(LG_EVENT_TYPE_1.LG_EVENT_TYPE.CHANGED_VALUE, function (e) {
                   if (!grid.hasFocusGrid()) {
@@ -9242,7 +9276,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                   onSelectMessage(sel);
                 });
                 grid.listen(LG_EVENT_TYPE_1.LG_EVENT_TYPE.BLUR_GRID, function (_e) {
-                  _this37._detach();
+                  _this38._detach();
                 });
               }
             }, {
@@ -9417,21 +9451,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super17 = _createSuper(ErrorMessageElement);
 
             function ErrorMessageElement() {
-              var _this38;
+              var _this39;
 
               _classCallCheck(this, ErrorMessageElement);
 
-              _this38 = _super17.call(this);
+              _this39 = _super17.call(this);
 
               __webpack_require__(
               /*! @/columns/message/internal/ErrorMessageElement.css */
               "../src/js/columns/message/internal/ErrorMessageElement.css");
 
-              _this38._rootElement.classList.add(CLASSNAME);
+              _this39._rootElement.classList.add(CLASSNAME);
 
-              _this38._messageElement.classList.add(MESSAGE_CLASSNAME);
+              _this39._messageElement.classList.add(MESSAGE_CLASSNAME);
 
-              return _this38;
+              return _this39;
             }
 
             return ErrorMessageElement;
@@ -9656,21 +9690,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super18 = _createSuper(WarningMessageElement);
 
             function WarningMessageElement() {
-              var _this39;
+              var _this40;
 
               _classCallCheck(this, WarningMessageElement);
 
-              _this39 = _super18.call(this);
+              _this40 = _super18.call(this);
 
               __webpack_require__(
               /*! @/columns/message/internal/WarningMessageElement.css */
               "../src/js/columns/message/internal/WarningMessageElement.css");
 
-              _this39._rootElement.classList.add(CLASSNAME);
+              _this40._rootElement.classList.add(CLASSNAME);
 
-              _this39._messageElement.classList.add(MESSAGE_CLASSNAME);
+              _this40._messageElement.classList.add(MESSAGE_CLASSNAME);
 
-              return _this39;
+              return _this40;
             }
 
             return WarningMessageElement;
@@ -9961,7 +9995,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super19 = _createSuper(BaseStyle);
 
             function BaseStyle() {
-              var _this40;
+              var _this41;
 
               var _ref26 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
                   bgColor = _ref26.bgColor,
@@ -9972,13 +10006,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
               _classCallCheck(this, BaseStyle);
 
-              _this40 = _super19.call(this);
-              _this40._bgColor = bgColor;
-              _this40._indicatorTopLeft = normalizeIndicator(indicatorTopLeft);
-              _this40._indicatorTopRight = normalizeIndicator(indicatorTopRight);
-              _this40._indicatorBottomRight = normalizeIndicator(indicatorBottomRight);
-              _this40._indicatorBottomLeft = normalizeIndicator(indicatorBottomLeft);
-              return _this40;
+              _this41 = _super19.call(this);
+              _this41._bgColor = bgColor;
+              _this41._indicatorTopLeft = normalizeIndicator(indicatorTopLeft);
+              _this41._indicatorTopRight = normalizeIndicator(indicatorTopRight);
+              _this41._indicatorBottomRight = normalizeIndicator(indicatorBottomRight);
+              _this41._indicatorBottomLeft = normalizeIndicator(indicatorBottomLeft);
+              return _this41;
             }
 
             _createClass(BaseStyle, [{
@@ -10114,19 +10148,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super20 = _createSuper(BranchGraphStyle);
 
             function BranchGraphStyle() {
-              var _this41;
+              var _this42;
 
               var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, BranchGraphStyle);
 
-              _this41 = _super20.call(this, style);
-              _this41._branchColors = style.branchColors || DEFAULT_BRANCH_COLORS;
-              _this41._margin = style.margin || 4;
-              _this41._circleSize = style.circleSize || 16;
-              _this41._branchLineWidth = style.branchLineWidth || 4;
-              _this41._mergeStyle = style.mergeStyle === "straight" ? "straight" : "bezier";
-              return _this41;
+              _this42 = _super20.call(this, style);
+              _this42._branchColors = style.branchColors || DEFAULT_BRANCH_COLORS;
+              _this42._margin = style.margin || 4;
+              _this42._circleSize = style.circleSize || 16;
+              _this42._branchLineWidth = style.branchLineWidth || 4;
+              _this42._mergeStyle = style.mergeStyle === "straight" ? "straight" : "bezier";
+              return _this42;
             }
 
             _createClass(BranchGraphStyle, [{
@@ -10228,18 +10262,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super21 = _createSuper(ButtonStyle);
 
             function ButtonStyle() {
-              var _this42;
+              var _this43;
 
               var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, ButtonStyle);
 
-              _this42 = _super21.call(this, (0, utils_1.defaults)(style, {
+              _this43 = _super21.call(this, (0, utils_1.defaults)(style, {
                 textAlign: "center"
               }));
               var buttonBgColor = style.buttonBgColor;
-              _this42._buttonBgColor = buttonBgColor;
-              return _this42;
+              _this43._buttonBgColor = buttonBgColor;
+              return _this43;
             }
 
             _createClass(ButtonStyle, [{
@@ -10305,22 +10339,22 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super22 = _createSuper(CheckStyle);
 
             function CheckStyle() {
-              var _this43;
+              var _this44;
 
               var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, CheckStyle);
 
-              _this43 = _super22.call(this, (0, utils_1.defaults)(style, {
+              _this44 = _super22.call(this, (0, utils_1.defaults)(style, {
                 textAlign: "center"
               }));
               var uncheckBgColor = style.uncheckBgColor,
                   checkBgColor = style.checkBgColor,
                   borderColor = style.borderColor;
-              _this43._uncheckBgColor = uncheckBgColor;
-              _this43._checkBgColor = checkBgColor;
-              _this43._borderColor = borderColor;
-              return _this43;
+              _this44._uncheckBgColor = uncheckBgColor;
+              _this44._checkBgColor = checkBgColor;
+              _this44._borderColor = borderColor;
+              return _this44;
             }
 
             _createClass(CheckStyle, [{
@@ -10467,18 +10501,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super24 = _createSuper(ImageStyle);
 
             function ImageStyle() {
-              var _this44;
+              var _this45;
 
               var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, ImageStyle);
 
-              _this44 = _super24.call(this, (0, utils_1.defaults)(style, {
+              _this45 = _super24.call(this, (0, utils_1.defaults)(style, {
                 textAlign: "center"
               }));
-              _this44._imageSizing = style.imageSizing;
-              _this44._margin = style.margin || 4;
-              return _this44;
+              _this45._imageSizing = style.imageSizing;
+              _this45._margin = style.margin || 4;
+              return _this45;
             }
 
             _createClass(ImageStyle, [{
@@ -10549,16 +10583,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super25 = _createSuper(MenuStyle);
 
             function MenuStyle() {
-              var _this45;
+              var _this46;
 
               var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, MenuStyle);
 
-              _this45 = _super25.call(this, style);
+              _this46 = _super25.call(this, style);
               var appearance = style.appearance;
-              _this45._appearance = appearance;
-              return _this45;
+              _this46._appearance = appearance;
+              return _this46;
             }
 
             _createClass(MenuStyle, [{
@@ -10624,19 +10658,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super26 = _createSuper(MultilineTextStyle);
 
             function MultilineTextStyle() {
-              var _this46;
+              var _this47;
 
               var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, MultilineTextStyle);
 
-              _this46 = _super26.call(this, (0, utils_1.defaults)(style, {
+              _this47 = _super26.call(this, (0, utils_1.defaults)(style, {
                 textBaseline: "top"
               }));
-              _this46._lineHeight = style.lineHeight || "1em";
-              _this46._autoWrapText = style.autoWrapText || false;
-              _this46._lineClamp = style.lineClamp;
-              return _this46;
+              _this47._lineHeight = style.lineHeight || "1em";
+              _this47._autoWrapText = style.autoWrapText || false;
+              _this47._lineClamp = style.lineClamp;
+              return _this47;
             }
 
             _createClass(MultilineTextStyle, [{
@@ -10795,17 +10829,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super28 = _createSuper(PercentCompleteBarStyle);
 
             function PercentCompleteBarStyle() {
-              var _this47;
+              var _this48;
 
               var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, PercentCompleteBarStyle);
 
-              _this47 = _super28.call(this, style);
-              _this47._barColor = style.barColor || DEFAULT_BAR_COLOR;
-              _this47._barBgColor = style.barBgColor || "#f0f3f5";
-              _this47._barHeight = style.barHeight || 3;
-              return _this47;
+              _this48 = _super28.call(this, style);
+              _this48._barColor = style.barColor || DEFAULT_BAR_COLOR;
+              _this48._barBgColor = style.barBgColor || "#f0f3f5";
+              _this48._barHeight = style.barHeight || 3;
+              return _this48;
             }
 
             _createClass(PercentCompleteBarStyle, [{
@@ -10889,13 +10923,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super29 = _createSuper(RadioStyle);
 
             function RadioStyle() {
-              var _this48;
+              var _this49;
 
               var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, RadioStyle);
 
-              _this48 = _super29.call(this, (0, utils_1.defaults)(style, {
+              _this49 = _super29.call(this, (0, utils_1.defaults)(style, {
                 textAlign: "center"
               }));
               var checkColor = style.checkColor,
@@ -10903,12 +10937,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                   checkBorderColor = style.checkBorderColor,
                   uncheckBgColor = style.uncheckBgColor,
                   checkBgColor = style.checkBgColor;
-              _this48._checkColor = checkColor;
-              _this48._uncheckBorderColor = uncheckBorderColor;
-              _this48._checkBorderColor = checkBorderColor;
-              _this48._uncheckBgColor = uncheckBgColor;
-              _this48._checkBgColor = checkBgColor;
-              return _this48;
+              _this49._checkColor = checkColor;
+              _this49._uncheckBorderColor = uncheckBorderColor;
+              _this49._checkBorderColor = checkBorderColor;
+              _this49._uncheckBgColor = uncheckBgColor;
+              _this49._checkBgColor = checkBgColor;
+              return _this49;
             }
 
             _createClass(RadioStyle, [{
@@ -11006,16 +11040,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super30 = _createSuper(StdBaseStyle);
 
             function StdBaseStyle() {
-              var _this49;
+              var _this50;
 
               var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, StdBaseStyle);
 
-              _this49 = _super30.call(this, style);
-              _this49._textAlign = style.textAlign || "left";
-              _this49._textBaseline = style.textBaseline || "middle";
-              return _this49;
+              _this50 = _super30.call(this, style);
+              _this50._textAlign = style.textAlign || "left";
+              _this50._textBaseline = style.textBaseline || "middle";
+              return _this50;
             }
 
             _createClass(StdBaseStyle, [{
@@ -11086,18 +11120,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super31 = _createSuper(Style);
 
             function Style() {
-              var _this50;
+              var _this51;
 
               var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, Style);
 
-              _this50 = _super31.call(this, style);
-              _this50._color = style.color;
-              _this50._font = style.font;
-              _this50._padding = style.padding;
-              _this50._textOverflow = style.textOverflow || "clip";
-              return _this50;
+              _this51 = _super31.call(this, style);
+              _this51._color = style.color;
+              _this51._font = style.font;
+              _this51._padding = style.padding;
+              _this51._textOverflow = style.textOverflow || "clip";
+              return _this51;
             }
 
             _createClass(Style, [{
@@ -11514,7 +11548,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "onDrawCell",
               value: function onDrawCell(cellValue, info, context, grid) {
-                var _this51 = this;
+                var _this52 = this;
 
                 var _a;
 
@@ -11566,16 +11600,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                         return;
                       }
 
-                      var actStyle = styleContents.of(style, record, _this51.StyleClass);
+                      var actStyle = styleContents.of(style, record, _this52.StyleClass);
 
-                      _this51.drawInternal(_this51.convertInternal(val), currentContext, actStyle, helper, grid, info);
+                      _this52.drawInternal(_this52.convertInternal(val), currentContext, actStyle, helper, grid, info);
 
-                      _this51.drawMessageInternal(message, currentContext, actStyle, helper, grid, info);
+                      _this52.drawMessageInternal(message, currentContext, actStyle, helper, grid, info);
 
-                      _this51.drawIndicatorsInternal(currentContext, actStyle, helper, grid, info);
+                      _this52.drawIndicatorsInternal(currentContext, actStyle, helper, grid, info);
                     };
 
-                    if (!isFadeinWhenCallbackInPromise(_this51, grid)) {
+                    if (!isFadeinWhenCallbackInPromise(_this52, grid)) {
                       drawInternal(); //単純な描画
                     } else {
                       var col = context.col,
@@ -12207,16 +12241,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super32 = _createSuper(BranchGraphColumn);
 
             function BranchGraphColumn() {
-              var _this52;
+              var _this53;
 
               var option = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, BranchGraphColumn);
 
-              _this52 = _super32.call(this, option);
-              _this52._start = option.start || "bottom";
-              _this52._cache = option.cache != null ? option.cache : false;
-              return _this52;
+              _this53 = _super32.call(this, option);
+              _this53._start = option.start || "bottom";
+              _this53._cache = option.cache != null ? option.cache : false;
+              return _this53;
             }
 
             _createClass(BranchGraphColumn, [{
@@ -12444,15 +12478,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super33 = _createSuper(ButtonColumn);
 
             function ButtonColumn() {
-              var _this53;
+              var _this54;
 
               var option = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, ButtonColumn);
 
-              _this53 = _super33.call(this, option);
-              _this53._caption = option.caption;
-              return _this53;
+              _this54 = _super33.call(this, option);
+              _this54._caption = option.caption;
+              return _this54;
             }
 
             _createClass(ButtonColumn, [{
@@ -12891,19 +12925,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super36 = _createSuper(IconColumn);
 
             function IconColumn() {
-              var _this54;
+              var _this55;
 
               var option = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, IconColumn);
 
-              _this54 = _super36.call(this, option);
-              _this54._tagName = option.tagName || "i";
-              _this54._className = option.className;
-              _this54._content = option.content;
-              _this54._name = option.name;
-              _this54._iconWidth = option.iconWidth;
-              return _this54;
+              _this55 = _super36.call(this, option);
+              _this55._tagName = option.tagName || "i";
+              _this55._className = option.className;
+              _this55._content = option.content;
+              _this55._name = option.name;
+              _this55._iconWidth = option.iconWidth;
+              return _this55;
             }
 
             _createClass(IconColumn, [{
@@ -13174,15 +13208,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super38 = _createSuper(MenuColumn);
 
             function MenuColumn() {
-              var _this55;
+              var _this56;
 
               var option = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, MenuColumn);
 
-              _this55 = _super38.call(this, option);
-              _this55._options = (0, menu_items_1.normalize)(option.options);
-              return _this55;
+              _this56 = _super38.call(this, option);
+              _this56._options = (0, menu_items_1.normalize)(option.options);
+              return _this56;
             }
 
             _createClass(MenuColumn, [{
@@ -13486,15 +13520,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super40 = _createSuper(NumberColumn);
 
             function NumberColumn() {
-              var _this56;
+              var _this57;
 
               var option = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, NumberColumn);
 
-              _this56 = _super40.call(this, option);
-              _this56._format = option.format;
-              return _this56;
+              _this57 = _super40.call(this, option);
+              _this57._format = option.format;
+              return _this57;
             }
 
             _createClass(NumberColumn, [{
@@ -13589,21 +13623,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super41 = _createSuper(PercentCompleteBarColumn);
 
             function PercentCompleteBarColumn() {
-              var _this57;
+              var _this58;
 
               var option = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, PercentCompleteBarColumn);
 
-              _this57 = _super41.call(this, option);
-              _this57._min = option.min || 0;
-              _this57._max = option.max || _this57._min + 100;
+              _this58 = _super41.call(this, option);
+              _this58._min = option.min || 0;
+              _this58._max = option.max || _this58._min + 100;
 
-              _this57._formatter = option.formatter || function (v) {
+              _this58._formatter = option.formatter || function (v) {
                 return v;
               };
 
-              return _this57;
+              return _this58;
             }
 
             _createClass(PercentCompleteBarColumn, [{
@@ -14186,7 +14220,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
           function _getTargetRowAt(absoluteY) {
-            var _this58 = this;
+            var _this59 = this;
 
             var internal = this.getTargetRowAtInternal(absoluteY);
 
@@ -14198,7 +14232,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
               var bottom = startBottom;
 
               for (var row = startRow; row >= 0; row--) {
-                var height = _getRowHeight.call(_this58, row);
+                var height = _getRowHeight.call(_this59, row);
 
                 var top = bottom - height;
 
@@ -14216,12 +14250,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             };
 
             var findAfter = function findAfter(startRow, startBottom) {
-              var top = startBottom - _getRowHeight.call(_this58, startRow);
+              var top = startBottom - _getRowHeight.call(_this59, startRow);
 
-              var rowCount = _this58[_].rowCount;
+              var rowCount = _this59[_].rowCount;
 
               for (var row = startRow; row < rowCount; row++) {
-                var height = _getRowHeight.call(_this58, row);
+                var height = _getRowHeight.call(_this59, row);
 
                 var _bottom = top + height;
 
@@ -14402,7 +14436,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
           function _drawCell(ctx, col, absoluteLeft, width, row, absoluteTop, height, visibleRect, skipAbsoluteTop, skipAbsoluteLeft, drawLayers) {
-            var _this59 = this;
+            var _this60 = this;
 
             var rect = new Rect_1.Rect(absoluteLeft - visibleRect.left, absoluteTop - visibleRect.top, width, height);
             var drawRect = Rect_1.Rect.bounds(Math.max(absoluteLeft, skipAbsoluteLeft) - visibleRect.left, Math.max(absoluteTop, skipAbsoluteTop) - visibleRect.top, rect.right, rect.bottom);
@@ -14427,7 +14461,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                   var pCol = col;
 
                   dcContext._delayMode(this, function () {
-                    _removeCellDrawing(_this59, pCol, row);
+                    _removeCellDrawing(_this60, pCol, row);
                   });
 
                   p.then(function () {
@@ -14887,7 +14921,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
           function _getRowsHeight(startRow, endRow) {
-            var _this60 = this;
+            var _this61 = this;
 
             var internal = this.getRowsHeightInternal(startRow, endRow);
 
@@ -14899,7 +14933,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var h = this[_].defaultRowHeight * rowCount;
 
             this[_].rowHeightsMap.each(startRow, endRow, function (height) {
-              h += height - _this60[_].defaultRowHeight;
+              h += height - _this61[_].defaultRowHeight;
             });
 
             return h;
@@ -14914,7 +14948,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
           function _getScrollHeight(row) {
-            var _this61 = this;
+            var _this62 = this;
 
             var internal = this.getScrollHeightInternal(row);
 
@@ -14925,7 +14959,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var h = this[_].defaultRowHeight * this[_].rowCount;
 
             this[_].rowHeightsMap.each(0, this[_].rowCount - 1, function (height) {
-              h += height - _this61[_].defaultRowHeight;
+              h += height - _this62[_].defaultRowHeight;
             });
 
             return h;
@@ -15973,29 +16007,29 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "_bindMoveAndUp",
               value: function _bindMoveAndUp(e) {
-                var _this62 = this;
+                var _this63 = this;
 
                 var events = this._events;
                 var handler = this._handler;
 
                 if (!isTouchEvent(e)) {
                   events.mousemove = handler.on(document.body, "mousemove", function (e) {
-                    return _this62._mouseMove(e);
+                    return _this63._mouseMove(e);
                   });
                   events.mouseup = handler.on(document.body, "mouseup", function (e) {
-                    return _this62._mouseUp(e);
+                    return _this63._mouseUp(e);
                   });
                 } else {
                   events.touchmove = handler.on(document.body, "touchmove", function (e) {
-                    return _this62._mouseMove(e);
+                    return _this63._mouseMove(e);
                   }, {
                     passive: false
                   });
                   events.touchend = handler.on(document.body, "touchend", function (e) {
-                    return _this62._mouseUp(e);
+                    return _this63._mouseUp(e);
                   });
                   events.touchcancel = handler.on(document.body, "touchcancel", function (e) {
-                    return _this62._mouseUp(e);
+                    return _this63._mouseUp(e);
                   });
                 }
 
@@ -16027,7 +16061,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "_mouseUp",
               value: function _mouseUp(e) {
-                var _this63 = this;
+                var _this64 = this;
 
                 var events = this._events;
                 var handler = this._handler;
@@ -16046,7 +16080,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                   //移動が発生していたら
                   this._mouseEndPoint = _getMouseAbstractPoint(this._grid, e);
                   setTimeout(function () {
-                    _this63._mouseEndPoint = null;
+                    _this64._mouseEndPoint = null;
                   }, 10);
                 }
               }
@@ -16201,16 +16235,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super44 = _createSuper(ColumnResizer);
 
             function ColumnResizer(grid) {
-              var _this64;
+              var _this65;
 
               _classCallCheck(this, ColumnResizer);
 
-              _this64 = _super44.call(this, grid);
-              _this64._x = -1;
-              _this64._preX = -1;
-              _this64._invalidateAbsoluteLeft = -1;
-              _this64._targetCol = -1;
-              return _this64;
+              _this65 = _super44.call(this, grid);
+              _this65._x = -1;
+              _this65._preX = -1;
+              _this65._invalidateAbsoluteLeft = -1;
+              _this65._targetCol = -1;
+              return _this65;
             }
 
             _createClass(ColumnResizer, [{
@@ -16305,26 +16339,26 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super45 = _createSuper(FocusControl);
 
             function FocusControl(grid, parentElement, scrollable, selection) {
-              var _this65;
+              var _this66;
 
               _classCallCheck(this, FocusControl);
 
-              _this65 = _super45.call(this);
-              _this65._grid = grid;
-              _this65._scrollable = scrollable;
-              var handler = _this65._handler = new EventHandler_1.EventHandler();
-              var input = _this65._input = document.createElement("input");
+              _this66 = _super45.call(this);
+              _this66._grid = grid;
+              _this66._scrollable = scrollable;
+              var handler = _this66._handler = new EventHandler_1.EventHandler();
+              var input = _this66._input = document.createElement("input");
               input.classList.add("grid-focus-control");
               input.readOnly = true;
               parentElement.appendChild(input);
               handler.on(input, "compositionstart", function (_e) {
                 input.classList.add("composition");
                 input.style.font = grid.font || "16px sans-serif";
-                _this65._isComposition = true;
+                _this66._isComposition = true;
 
-                if (_this65._compositionEnd) {
-                  clearTimeout(_this65._compositionEnd);
-                  delete _this65._compositionEnd;
+                if (_this66._compositionEnd) {
+                  clearTimeout(_this66._compositionEnd);
+                  delete _this66._compositionEnd;
                 }
 
                 grid.focus();
@@ -16334,7 +16368,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
               var inputClear = function inputClear(storeLastInputValue) {
                 lastInputValue = input.value;
 
-                if (_this65._isComposition) {
+                if (_this66._isComposition) {
                   return;
                 }
 
@@ -16348,32 +16382,32 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
               };
 
               var handleCompositionEnd = function handleCompositionEnd() {
-                _this65._isComposition = false;
+                _this66._isComposition = false;
                 input.classList.remove("composition");
                 input.style.font = "";
                 var value = input.value;
                 inputClear(false);
 
                 if (!input.readOnly) {
-                  _this65.fireListeners("input", value);
+                  _this66.fireListeners("input", value);
                 }
 
-                if (_this65._compositionEnd) {
-                  clearTimeout(_this65._compositionEnd);
-                  delete _this65._compositionEnd;
+                if (_this66._compositionEnd) {
+                  clearTimeout(_this66._compositionEnd);
+                  delete _this66._compositionEnd;
                 }
               };
 
               handler.on(input, "compositionend", function (_e) {
-                _this65._compositionEnd = setTimeout(handleCompositionEnd, 1);
+                _this66._compositionEnd = setTimeout(handleCompositionEnd, 1);
               });
               selection.listen("before_hook", function () {
-                if (_this65._compositionEnd) {
+                if (_this66._compositionEnd) {
                   handleCompositionEnd();
                 }
               });
               handler.on(input, "keypress", function (e) {
-                if (_this65._isComposition) {
+                if (_this66._isComposition) {
                   return;
                 }
 
@@ -16388,7 +16422,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                       return;
                     }
 
-                    _this65.fireListeners("input", e.key);
+                    _this66.fireListeners("input", e.key);
 
                     cancelEvent(e);
                   }
@@ -16399,8 +16433,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
               handler.on(input, "keydown", function (e) {
                 var _a;
 
-                if (_this65._isComposition) {
-                  if (_this65._compositionEnd) {
+                if (_this66._isComposition) {
+                  if (_this66._compositionEnd) {
                     handleCompositionEnd();
                     cancelEvent(e);
                   }
@@ -16418,24 +16452,24 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                   }
                 };
 
-                _this65.fireListeners("keydown", evt);
+                _this66.fireListeners("keydown", evt);
 
                 if (!input.readOnly && lastInputValue) {
                   // for Safari
-                  _this65.fireListeners("input", lastInputValue);
+                  _this66.fireListeners("input", lastInputValue);
                 }
 
-                if (!stopCellMove) _this65.fireKeyDownMove(keyCode, e);
+                if (!stopCellMove) _this66.fireKeyDownMove(keyCode, e);
 
-                if (((_a = _this65._grid.keyboardOptions) === null || _a === void 0 ? void 0 : _a.deleteCellValueOnDel) && (keyCode === KEY_DEL || keyCode === KEY_BS)) {
-                  _this65.fireListeners("delete", e);
+                if (((_a = _this66._grid.keyboardOptions) === null || _a === void 0 ? void 0 : _a.deleteCellValueOnDel) && (keyCode === KEY_DEL || keyCode === KEY_BS)) {
+                  _this66.fireListeners("delete", e);
                 }
 
                 inputClear(true);
               });
               handler.on(input, "keyup", function (_e) {
-                if (_this65._isComposition) {
-                  if (_this65._compositionEnd) {
+                if (_this66._isComposition) {
+                  if (_this66._compositionEnd) {
                     handleCompositionEnd();
                   }
                 }
@@ -16445,7 +16479,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
               handler.on(input, "input", function (e) {
                 if (e.data === " " || e.data === "　") {
                   // Since the full-width space cannot be determined on "keypress", it is processed by "input".
-                  _this65.fireListeners("input", e.data);
+                  _this66.fireListeners("input", e.data);
                 }
 
                 inputClear(true);
@@ -16522,14 +16556,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 }
 
                 if (pasteText != null && pasteText.length) {
-                  _this65.fireListeners("paste", {
+                  _this66.fireListeners("paste", {
                     value: pasteText,
                     event: e
                   });
                 }
               });
               handler.on(document, "copy", function (e) {
-                if (_this65._isComposition) {
+                if (_this66._isComposition) {
                   return;
                 }
 
@@ -16538,7 +16572,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 }
 
                 setSafeInputValue(input, "");
-                var data = utils_1.array.find(_this65.fireListeners("copy"), function (r) {
+                var data = utils_1.array.find(_this66.fireListeners("copy"), function (r) {
                   return r != null;
                 });
 
@@ -16554,12 +16588,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 }
               });
               handler.on(input, "focus", function (e) {
-                _this65.fireListeners("focus", e);
+                _this66.fireListeners("focus", e);
               });
               handler.on(input, "blur", function (e) {
-                _this65.fireListeners("blur", e);
+                _this66.fireListeners("blur", e);
               });
-              return _this65;
+              return _this66;
             }
 
             _createClass(FocusControl, [{
@@ -16747,29 +16781,29 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super46 = _createSuper(Selection);
 
             function Selection(grid) {
-              var _this66;
+              var _this67;
 
               _classCallCheck(this, Selection);
 
-              _this66 = _super46.call(this);
-              _this66._grid = grid;
-              _this66._sel = {
+              _this67 = _super46.call(this);
+              _this67._grid = grid;
+              _this67._sel = {
                 col: 0,
                 row: 0
               };
-              _this66._focus = {
+              _this67._focus = {
                 col: 0,
                 row: 0
               };
-              _this66._start = {
+              _this67._start = {
                 col: 0,
                 row: 0
               };
-              _this66._end = {
+              _this67._end = {
                 col: 0,
                 row: 0
               };
-              return _this66;
+              return _this67;
             }
 
             _createClass(Selection, [{
@@ -16793,7 +16827,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 };
               },
               set: function set(range) {
-                var _this67 = this;
+                var _this68 = this;
 
                 this._callBeforeHooks();
 
@@ -16803,24 +16837,24 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 var endRow = Math.max(range.start.row, range.end.row);
 
                 this._wrapFireSelectedEvent(function () {
-                  _this67._sel = {
+                  _this68._sel = {
                     col: startCol,
                     row: startRow
                   };
-                  _this67._focus = {
+                  _this68._focus = {
                     col: startCol,
                     row: startRow
                   };
-                  _this67._start = {
+                  _this68._start = {
                     col: startCol,
                     row: startRow
                   };
-                  _this67._end = {
+                  _this68._end = {
                     col: endCol,
                     row: endRow
                   };
 
-                  _updatedSelection.call(_this67._grid);
+                  _updatedSelection.call(_this68._grid);
                 });
               }
             }, {
@@ -16846,7 +16880,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 };
               },
               set: function set(cell) {
-                var _this68 = this;
+                var _this69 = this;
 
                 this._callBeforeHooks();
 
@@ -16856,24 +16890,24 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                       _cell$row = cell.row,
                       row = _cell$row === void 0 ? 0 : _cell$row;
 
-                  _this68._setSelectCell(col, row);
+                  _this69._setSelectCell(col, row);
 
-                  _this68._setFocusCell(col, row, true, true);
+                  _this69._setFocusCell(col, row, true, true);
 
-                  _updatedSelection.call(_this68._grid);
+                  _updatedSelection.call(_this69._grid);
                 });
               }
             }, {
               key: "_setSelectCell",
               value: function _setSelectCell(col, row) {
-                var _this69 = this;
+                var _this70 = this;
 
                 this._wrapFireSelectedEvent(function () {
-                  _this69._sel = {
+                  _this70._sel = {
                     col: col,
                     row: row
                   };
-                  _this69._start = {
+                  _this70._start = {
                     col: col,
                     row: row
                   };
@@ -16882,20 +16916,20 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "_setFocusCell",
               value: function _setFocusCell(col, row, keepSelect, ignoreBeforeHook) {
-                var _this70 = this;
+                var _this71 = this;
 
                 if (!ignoreBeforeHook) this._callBeforeHooks();
 
                 this._wrapFireSelectedEvent(function () {
                   if (!keepSelect) {
-                    _this70._setSelectCell(col, row);
+                    _this71._setSelectCell(col, row);
                   }
 
-                  _this70._focus = {
+                  _this71._focus = {
                     col: col,
                     row: row
                   };
-                  _this70._end = {
+                  _this71._end = {
                     col: col,
                     row: row
                   };
@@ -17319,13 +17353,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super47 = _createSuper(DrawGrid);
 
             function DrawGrid() {
-              var _this71;
+              var _this72;
 
               var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, DrawGrid);
 
-              _this71 = _super47.call(this);
+              _this72 = _super47.call(this);
               var _options$rowCount = options.rowCount,
                   rowCount = _options$rowCount === void 0 ? 10 : _options$rowCount,
                   _options$colCount = options.colCount,
@@ -17344,13 +17378,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                   parentElement = options.parentElement,
                   disableColumnResize = options.disableColumnResize,
                   trimOnPaste = options.trimOnPaste;
-              var protectedSpace = _this71[_] = {};
+              var protectedSpace = _this72[_] = {};
               style.initDocument();
               protectedSpace.element = createRootElement();
               protectedSpace.scrollable = new Scrollable_1.Scrollable();
               protectedSpace.handler = new EventHandler_1.EventHandler();
-              protectedSpace.selection = new Selection(_assertThisInitialized(_this71));
-              protectedSpace.focusControl = new FocusControl(_assertThisInitialized(_this71), protectedSpace.scrollable.getElement(), protectedSpace.scrollable, protectedSpace.selection);
+              protectedSpace.selection = new Selection(_assertThisInitialized(_this72));
+              protectedSpace.focusControl = new FocusControl(_assertThisInitialized(_this72), protectedSpace.scrollable.getElement(), protectedSpace.scrollable, protectedSpace.selection);
               protectedSpace.canvas = hiDPI.transform(document.createElement("canvas"));
               protectedSpace.context = protectedSpace.canvas.getContext("2d", {
                 alpha: false
@@ -17382,8 +17416,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 }
 
               };
-              protectedSpace.columnResizer = new ColumnResizer(_assertThisInitialized(_this71));
-              protectedSpace.cellSelector = new CellSelector(_assertThisInitialized(_this71));
+              protectedSpace.columnResizer = new ColumnResizer(_assertThisInitialized(_this72));
+              protectedSpace.cellSelector = new CellSelector(_assertThisInitialized(_this72));
               protectedSpace.drawCells = {};
               protectedSpace.cellTextOverflows = {};
               protectedSpace.focusedGrid = false;
@@ -17394,21 +17428,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 top: 0
               };
 
-              _this71.updateScroll();
+              _this72.updateScroll();
 
               if (parentElement) {
                 parentElement.appendChild(protectedSpace.element);
 
-                _this71.updateSize();
+                _this72.updateSize();
               } else {
-                _this71.updateSize();
+                _this72.updateSize();
               }
 
-              _bindEvents.call(_assertThisInitialized(_this71));
+              _bindEvents.call(_assertThisInitialized(_this72));
 
-              _this71.bindEventsInternal();
+              _this72.bindEventsInternal();
 
-              return _this71;
+              return _this72;
             }
             /**
              * Get root element.
@@ -18510,7 +18544,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             _createClass(EventTarget, [{
               key: "listen",
               value: function listen(type, listener) {
-                var _this72 = this;
+                var _this73 = this;
 
                 var list = this[_].listeners[type] || (this[_].listeners[type] = []);
                 list.push(listener);
@@ -18519,12 +18553,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                   type: type,
                   listener: listener,
                   remove: function remove() {
-                    delete _this72[_].listenerData[id];
+                    delete _this73[_].listenerData[id];
                     var index = list.indexOf(listener);
                     list.splice(index, 1);
 
-                    if (!_this72[_].listeners[type].length) {
-                      delete _this72[_].listeners[type];
+                    if (!_this73[_].listeners[type].length) {
+                      delete _this73[_].listeners[type];
                     }
                   }
                 };
@@ -18553,7 +18587,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "removeEventListener",
               value: function removeEventListener(type, listener) {
-                var _this73 = this;
+                var _this74 = this;
 
                 if (!this[_]) {
                   return;
@@ -18561,7 +18595,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
                 (0, utils_1.each)(this[_].listenerData, function (obj, id) {
                   if (obj.type === type && obj.listener === listener) {
-                    _this73.unlisten(id);
+                    _this74.unlisten(id);
                   }
                 });
               }
@@ -18585,7 +18619,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "fireListeners",
               value: function fireListeners(type) {
-                var _this74 = this;
+                var _this75 = this;
 
                 for (var _len5 = arguments.length, args = new Array(_len5 > 1 ? _len5 - 1 : 0), _key5 = 1; _key5 < _len5; _key5++) {
                   args[_key5 - 1] = arguments[_key5];
@@ -18602,7 +18636,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 }
 
                 return list.map(function (listener) {
-                  return listener.call.apply(listener, [_this74].concat(args));
+                  return listener.call.apply(listener, [_this75].concat(args));
                 }).filter(function (r) {
                   return r != null;
                 });
@@ -18722,14 +18756,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super48 = _createSuper(CachedDataSource);
 
             function CachedDataSource(opt) {
-              var _this75;
+              var _this76;
 
               _classCallCheck(this, CachedDataSource);
 
-              _this75 = _super48.call(this, opt);
-              _this75._rCache = {};
-              _this75._fCache = {};
-              return _this75;
+              _this76 = _super48.call(this, opt);
+              _this76._rCache = {};
+              _this76._fCache = {};
+              return _this76;
             }
 
             _createClass(CachedDataSource, [{
@@ -19063,19 +19097,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super49 = _createSuper(DataSource);
 
             function DataSource(obj) {
-              var _this76;
+              var _this77;
 
               _classCallCheck(this, DataSource);
 
               var _a;
 
-              _this76 = _super49.call(this);
-              _this76._sortedIndexMap = null; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              _this77 = _super49.call(this);
+              _this77._sortedIndexMap = null; // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
-              _this76._get = (obj === null || obj === void 0 ? void 0 : obj.get.bind(obj)) || undefined;
-              _this76._length = (obj === null || obj === void 0 ? void 0 : obj.length) || 0;
-              _this76._source = (_a = obj === null || obj === void 0 ? void 0 : obj.source) !== null && _a !== void 0 ? _a : obj;
-              return _this76;
+              _this77._get = (obj === null || obj === void 0 ? void 0 : obj.get.bind(obj)) || undefined;
+              _this77._length = (obj === null || obj === void 0 ? void 0 : obj.length) || 0;
+              _this77._source = (_a = obj === null || obj === void 0 ? void 0 : obj.source) !== null && _a !== void 0 ? _a : obj;
+              return _this77;
             } // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 
@@ -19109,7 +19143,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "sort",
               value: function sort(field, order) {
-                var _this77 = this;
+                var _this78 = this;
 
                 var sortedIndexMap = new Array(this._length);
                 var orderFn = order !== "desc" ? ascOrderFn : descOrderFn;
@@ -19118,11 +19152,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 }, function (index, rel) {
                   sortedIndexMap[index] = rel;
                 }, this._length, orderFn, function (index) {
-                  return _this77.getOriginalField(index, field);
+                  return _this78.getOriginalField(index, field);
                 }).then(function () {
-                  _this77._sortedIndexMap = sortedIndexMap;
+                  _this78._sortedIndexMap = sortedIndexMap;
 
-                  _this77.fireListeners(EVENT_TYPE.UPDATED_ORDER);
+                  _this78.fireListeners(EVENT_TYPE.UPDATED_ORDER);
                 });
               }
             }, {
@@ -19159,16 +19193,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "getOriginal",
               value: function getOriginal(index) {
-                var _this78 = this;
+                var _this79 = this;
 
                 return getValue(this._get(index), function (val) {
-                  _this78.recordPromiseCallBackInternal(index, val);
+                  _this79.recordPromiseCallBackInternal(index, val);
                 });
               }
             }, {
               key: "getOriginalField",
               value: function getOriginalField(index, field) {
-                var _this79 = this;
+                var _this80 = this;
 
                 if (field == null) {
                   return undefined;
@@ -19176,7 +19210,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
                 var record = this.getOriginal(index);
                 return getField(record, field, function (val) {
-                  _this79.fieldPromiseCallBackInternal(index, field, val);
+                  _this80.fieldPromiseCallBackInternal(index, field, val);
                 });
               }
             }, {
@@ -19418,7 +19452,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "_findIndexWithTimeout",
               value: function _findIndexWithTimeout(index, testTimeout) {
-                var _this80 = this;
+                var _this81 = this;
 
                 var filteredList = this._filteredList;
                 var filter = this._filter;
@@ -19436,7 +19470,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                     dataSourceItr.movePrev();
                     var queue = record.then(function (_value) {
                       queues[index] = null;
-                      return _this80.get(index);
+                      return _this81.get(index);
                     });
                     queues[index] = queue;
                     return queue;
@@ -19459,7 +19493,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
                     var _queue = promise.then(function () {
                       queues[index] = null;
-                      return _this80.get(index);
+                      return _this81.get(index);
                     });
 
                     queues[index] = _queue;
@@ -19489,32 +19523,32 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super50 = _createSuper(FilterDataSource);
 
             function FilterDataSource(dataSource, filter) {
-              var _this81;
+              var _this82;
 
               _classCallCheck(this, FilterDataSource);
 
-              _this81 = _super50.call(this, dataSource);
-              _this81._filterData = null;
-              _this81._dataSource = dataSource;
-              _this81.filter = filter;
-              var handler = _this81._handler = new EventHandler_1.EventHandler();
+              _this82 = _super50.call(this, dataSource);
+              _this82._filterData = null;
+              _this82._dataSource = dataSource;
+              _this82.filter = filter;
+              var handler = _this82._handler = new EventHandler_1.EventHandler();
               handler.on(dataSource, DataSource_1.DataSource.EVENT_TYPE.UPDATED_ORDER, function () {
                 // reset
                 // eslint-disable-next-line no-self-assign
-                _this81.filter = _this81.filter;
+                _this82.filter = _this82.filter;
               });
               (0, utils_1.each)(DataSource_1.DataSource.EVENT_TYPE, function (type) {
                 handler.on(dataSource, type, function () {
-                  var _this82;
+                  var _this83;
 
                   for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
                     args[_key6] = arguments[_key6];
                   }
 
-                  return (_this82 = _this81).fireListeners.apply(_this82, [type].concat(args));
+                  return (_this83 = _this82).fireListeners.apply(_this83, [type].concat(args));
                 });
               });
-              return _this81;
+              return _this82;
             }
 
             _createClass(FilterDataSource, [{
@@ -19788,7 +19822,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super51 = _createSuper(InlineDrawer);
 
             function InlineDrawer(_ref53) {
-              var _this83;
+              var _this84;
 
               var draw = _ref53.draw,
                   width = _ref53.width,
@@ -19796,12 +19830,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
               _classCallCheck(this, InlineDrawer);
 
-              _this83 = _super51.call(this);
-              _this83._draw = draw;
-              _this83._width = width; // this._height = height;
+              _this84 = _super51.call(this);
+              _this84._draw = draw;
+              _this84._width = width; // this._height = height;
 
-              _this83._color = color;
-              return _this83;
+              _this84._color = color;
+              return _this84;
             }
 
             _createClass(InlineDrawer, [{
@@ -19945,13 +19979,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super52 = _createSuper(InlineIcon);
 
             function InlineIcon(icon) {
-              var _this84;
+              var _this85;
 
               _classCallCheck(this, InlineIcon);
 
-              _this84 = _super52.call(this);
-              _this84._icon = icon || {};
-              return _this84;
+              _this85 = _super52.call(this);
+              _this85._icon = icon || {};
+              return _this85;
             }
 
             _createClass(InlineIcon, [{
@@ -20098,7 +20132,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super53 = _createSuper(InlineImage);
 
             function InlineImage(_ref57) {
-              var _this85;
+              var _this86;
 
               var src = _ref57.src,
                   width = _ref57.width,
@@ -20112,45 +20146,45 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
               _classCallCheck(this, InlineImage);
 
-              _this85 = _super53.call(this);
-              _this85._inlineImgPromise = null;
-              _this85._inlineImg = null;
-              _this85._src = src;
-              _this85._width = width;
-              _this85._height = height;
-              _this85._imageLeft = imageLeft;
-              _this85._imageTop = imageTop;
-              _this85._imageWidth = imageWidth;
-              _this85._imageHeight = imageHeight;
-              _this85._offsetTop = offsetTop;
-              _this85._offsetLeft = offsetLeft;
-              _this85._onloaded = [];
+              _this86 = _super53.call(this);
+              _this86._inlineImgPromise = null;
+              _this86._inlineImg = null;
+              _this86._src = src;
+              _this86._width = width;
+              _this86._height = height;
+              _this86._imageLeft = imageLeft;
+              _this86._imageTop = imageTop;
+              _this86._imageWidth = imageWidth;
+              _this86._imageHeight = imageHeight;
+              _this86._offsetTop = offsetTop;
+              _this86._offsetLeft = offsetLeft;
+              _this86._onloaded = [];
 
               if ((0, utils_1.isPromise)(src)) {
                 src.then(function (s) {
-                  _this85._src = s;
+                  _this86._src = s;
 
-                  _this85._loadImage(s);
+                  _this86._loadImage(s);
                 });
               } else {
-                _this85._loadImage(src);
+                _this86._loadImage(src);
               }
 
-              return _this85;
+              return _this86;
             }
 
             _createClass(InlineImage, [{
               key: "_loadImage",
               value: function _loadImage(src) {
-                var _this86 = this;
+                var _this87 = this;
 
                 var img = this._inlineImgPromise = (0, imgs_1.getCacheOrLoad)("InlineImage", 50, src);
 
                 if ((0, utils_1.isPromise)(img)) {
                   img.then(function (i) {
-                    _this86._inlineImg = i;
+                    _this87._inlineImg = i;
 
-                    _this86._onloaded.forEach(function (fn) {
+                    _this87._onloaded.forEach(function (fn) {
                       return fn();
                     });
                   });
@@ -20310,7 +20344,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super54 = _createSuper(InlinePath2D);
 
             function InlinePath2D(_ref59) {
-              var _this87;
+              var _this88;
 
               var path = _ref59.path,
                   width = _ref59.width,
@@ -20319,14 +20353,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
               _classCallCheck(this, InlinePath2D);
 
-              _this87 = _super54.call(this); // このタイミングでないとIEでPath2Dのpolyfillが反映されない
+              _this88 = _super54.call(this); // このタイミングでないとIEでPath2Dのpolyfillが反映されない
 
               var Path2D = path2DManager.getPath2D();
-              _this87._path = new Path2D(path);
-              _this87._width = width;
-              _this87._height = height;
-              _this87._color = color;
-              return _this87;
+              _this88._path = new Path2D(path);
+              _this88._width = width;
+              _this88._height = height;
+              _this88._color = color;
+              return _this88;
             }
 
             _createClass(InlinePath2D, [{
@@ -21106,7 +21140,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "bindGridEvent",
               value: function bindGridEvent(grid, cellId) {
-                var _this88 = this;
+                var _this89 = this;
 
                 var state = getState(grid);
 
@@ -21116,7 +21150,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                   var range = grid.getCellRange(col, row);
                   var cellKey = "".concat(range.start.col, ":").concat(range.start.row);
 
-                  if (_this88.disabled || state.block[cellKey]) {
+                  if (_this89.disabled || state.block[cellKey]) {
                     return;
                   }
 
@@ -21142,7 +21176,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 return [].concat(_toConsumableArray((0, actionBind_1.bindCellClickAction)(grid, cellId, {
                   action: action,
                   mouseOver: function mouseOver(e) {
-                    if (_this88.disabled) {
+                    if (_this89.disabled) {
                       return false;
                     }
 
@@ -21205,7 +21239,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super59 = _createSuper(SortHeaderAction);
 
             function SortHeaderAction() {
-              var _this89;
+              var _this90;
 
               var option = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
@@ -21213,9 +21247,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
               var _a;
 
-              _this89 = _super59.call(this, option);
-              _this89._sort = (_a = option.sort) !== null && _a !== void 0 ? _a : true;
-              return _this89;
+              _this90 = _super59.call(this, option);
+              _this90._sort = (_a = option.sort) !== null && _a !== void 0 ? _a : true;
+              return _this90;
             }
 
             _createClass(SortHeaderAction, [{
@@ -21261,14 +21295,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "bindGridEvent",
               value: function bindGridEvent(grid, cellId) {
-                var _this90 = this;
+                var _this91 = this;
 
                 function isTarget(col, row) {
                   return grid.getLayoutCellId(col, row) === cellId;
                 }
 
                 var action = function action(cell) {
-                  if (_this90.disabled) {
+                  if (_this91.disabled) {
                     return;
                   }
 
@@ -21292,7 +21326,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
                   grid.sortState = newState;
 
-                  _this90._executeSort(newState, grid);
+                  _this91._executeSort(newState, grid);
 
                   grid.invalidateGridRect(0, 0, grid.colCount - 1, grid.rowCount - 1);
                 };
@@ -21300,7 +21334,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 return _toConsumableArray((0, actionBind_1.bindCellClickAction)(grid, cellId, {
                   action: action,
                   mouseOver: function mouseOver(_e) {
-                    if (_this90.disabled) {
+                    if (_this91.disabled) {
                       return false;
                     }
 
@@ -21589,16 +21623,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super60 = _createSuper(BaseStyle);
 
             function BaseStyle() {
-              var _this91;
+              var _this92;
 
               var _ref68 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
                   bgColor = _ref68.bgColor;
 
               _classCallCheck(this, BaseStyle);
 
-              _this91 = _super60.call(this);
-              _this91._bgColor = bgColor;
-              return _this91;
+              _this92 = _super60.call(this);
+              _this92._bgColor = bgColor;
+              return _this92;
             }
 
             _createClass(BaseStyle, [{
@@ -21674,22 +21708,22 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super61 = _createSuper(CheckHeaderStyle);
 
             function CheckHeaderStyle() {
-              var _this92;
+              var _this93;
 
               var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, CheckHeaderStyle);
 
-              _this92 = _super61.call(this, (0, utils_1.defaults)(style, {
+              _this93 = _super61.call(this, (0, utils_1.defaults)(style, {
                 textAlign: "center"
               }));
               var uncheckBgColor = style.uncheckBgColor,
                   checkBgColor = style.checkBgColor,
                   borderColor = style.borderColor;
-              _this92._uncheckBgColor = uncheckBgColor;
-              _this92._checkBgColor = checkBgColor;
-              _this92._borderColor = borderColor;
-              return _this92;
+              _this93._uncheckBgColor = uncheckBgColor;
+              _this93._checkBgColor = checkBgColor;
+              _this93._borderColor = borderColor;
+              return _this93;
             }
 
             _createClass(CheckHeaderStyle, [{
@@ -21826,16 +21860,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super63 = _createSuper(SortHeaderStyle);
 
             function SortHeaderStyle() {
-              var _this93;
+              var _this94;
 
               var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, SortHeaderStyle);
 
-              _this93 = _super63.call(this, style);
-              _this93._sortArrowColor = style.sortArrowColor;
-              _this93._multiline = style.multiline;
-              return _this93;
+              _this94 = _super63.call(this, style);
+              _this94._sortArrowColor = style.sortArrowColor;
+              _this94._multiline = style.multiline;
+              return _this94;
             }
 
             _createClass(SortHeaderStyle, [{
@@ -21906,16 +21940,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super64 = _createSuper(StdBaseStyle);
 
             function StdBaseStyle() {
-              var _this94;
+              var _this95;
 
               var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, StdBaseStyle);
 
-              _this94 = _super64.call(this, style);
-              _this94._textAlign = style.textAlign || "left";
-              _this94._textBaseline = style.textBaseline || "middle";
-              return _this94;
+              _this95 = _super64.call(this, style);
+              _this95._textAlign = style.textAlign || "left";
+              _this95._textBaseline = style.textBaseline || "middle";
+              return _this95;
             }
 
             _createClass(StdBaseStyle, [{
@@ -21986,17 +22020,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super65 = _createSuper(StdMultilineTextBaseStyle);
 
             function StdMultilineTextBaseStyle() {
-              var _this95;
+              var _this96;
 
               var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, StdMultilineTextBaseStyle);
 
-              _this95 = _super65.call(this, style);
-              _this95._lineHeight = style.lineHeight || "1em";
-              _this95._autoWrapText = style.autoWrapText || false;
-              _this95._lineClamp = style.lineClamp;
-              return _this95;
+              _this96 = _super65.call(this, style);
+              _this96._lineHeight = style.lineHeight || "1em";
+              _this96._autoWrapText = style.autoWrapText || false;
+              _this96._lineClamp = style.lineClamp;
+              return _this96;
             }
 
             _createClass(StdMultilineTextBaseStyle, [{
@@ -22076,18 +22110,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super66 = _createSuper(StdTextBaseStyle);
 
             function StdTextBaseStyle() {
-              var _this96;
+              var _this97;
 
               var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, StdTextBaseStyle);
 
-              _this96 = _super66.call(this, style);
-              _this96._color = style.color;
-              _this96._font = style.font;
-              _this96._padding = style.padding;
-              _this96._textOverflow = style.textOverflow || "ellipsis";
-              return _this96;
+              _this97 = _super66.call(this, style);
+              _this97._color = style.color;
+              _this97._font = style.font;
+              _this97._padding = style.padding;
+              _this97._textOverflow = style.textOverflow || "ellipsis";
+              return _this97;
             }
 
             _createClass(StdTextBaseStyle, [{
@@ -22176,15 +22210,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var _super67 = _createSuper(Style);
 
             function Style() {
-              var _this97;
+              var _this98;
 
               var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
               _classCallCheck(this, Style);
 
-              _this97 = _super67.call(this, style);
-              _this97._multiline = style.multiline;
-              return _this97;
+              _this98 = _super67.call(this, style);
+              _this98._multiline = style.multiline;
+              return _this98;
             }
 
             _createClass(Style, [{
@@ -23342,14 +23376,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "once",
               value: function once(target, type, listener) {
-                var _this98 = this;
+                var _this99 = this;
 
                 for (var _len8 = arguments.length, options = new Array(_len8 > 3 ? _len8 - 3 : 0), _key8 = 3; _key8 < _len8; _key8++) {
                   options[_key8 - 3] = arguments[_key8];
                 }
 
                 var id = this.on.apply(this, [target, type, function () {
-                  _this98.off(id);
+                  _this99.off(id);
 
                   listener.apply(void 0, arguments);
                 }].concat(options));
@@ -25615,7 +25649,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           var originalFill = CanvasRenderingContext2D.prototype.fill; // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
           CanvasRenderingContext2D.prototype.fill = function () {
-            var _this99 = this;
+            var _this100 = this;
 
             for (var _len20 = arguments.length, args = new Array(_len20), _key20 = 0; _key20 < _len20; _key20++) {
               args[_key20] = arguments[_key20];
@@ -25626,8 +25660,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
               this.beginPath();
 
               path._ops.forEach(function (op) {
-                var fn = _this99[op.op];
-                fn.apply(_this99, op.args);
+                var fn = _this100[op.op];
+                fn.apply(_this100, op.args);
               });
 
               originalFill.apply(this, Array.prototype.slice.call(args, 1));
@@ -25776,7 +25810,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           }
 
           var PathCommands = function PathCommands(ctx) {
-            var _this100 = this;
+            var _this101 = this;
 
             _classCallCheck(this, PathCommands);
 
@@ -25805,11 +25839,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
               lx = px;
               ly = py;
               lastCommand = "M";
-              return _this100;
+              return _this101;
             };
 
             this.m = function (px, py) {
-              return _this100.M(px + lx, py + ly);
+              return _this101.M(px + lx, py + ly);
             };
 
             this.L = function (px, py) {
@@ -25817,27 +25851,27 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
               lx = px;
               ly = py;
               lastCommand = "L";
-              return _this100;
+              return _this101;
             };
 
             this.l = function (px, py) {
-              return _this100.L(px + lx, py + ly);
+              return _this101.L(px + lx, py + ly);
             };
 
             this.H = function (px) {
-              return _this100.L(px, ly);
+              return _this101.L(px, ly);
             };
 
             this.h = function (px) {
-              return _this100.H(px + lx);
+              return _this101.H(px + lx);
             };
 
             this.V = function (py) {
-              return _this100.L(lx, py);
+              return _this101.L(lx, py);
             };
 
             this.v = function (py) {
-              return _this100.V(py + ly);
+              return _this101.V(py + ly);
             };
 
             this.Z = function () {
@@ -25845,11 +25879,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
               lx = lMx;
               ly = lMy;
               lastCommand = "Z";
-              return _this100;
+              return _this101;
             };
 
             this.z = function () {
-              return _this100.Z();
+              return _this101.Z();
             }; //C x1 y1, x2 y2, x y (or c dx1 dy1, dx2 dy2, dx dy)
 
 
@@ -25862,11 +25896,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 y: 2 * py - cp2y
               };
               lastCommand = "C";
-              return _this100;
+              return _this101;
             };
 
             this.c = function (cp1x, cp1y, cp2x, cp2y, px, py) {
-              return _this100.C(cp1x + lx, cp1y + ly, cp2x + lx, cp2y + ly, px + lx, py + ly);
+              return _this101.C(cp1x + lx, cp1y + ly, cp2x + lx, cp2y + ly, px + lx, py + ly);
             }; //S x2 y2, x y (or s dx2 dy2, dx dy)
 
 
@@ -25875,11 +25909,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                   cp1x = _makeReflected.x,
                   cp1y = _makeReflected.y;
 
-              return _this100.C(cp1x, cp1y, cpx, cpy, px, py);
+              return _this101.C(cp1x, cp1y, cpx, cpy, px, py);
             };
 
             this.s = function (cpx, cpy, px, py) {
-              return _this100.S(cpx + lx, cpy + ly, px + lx, py + ly);
+              return _this101.S(cpx + lx, cpy + ly, px + lx, py + ly);
             }; //Q x1 y1, x y (or q dx1 dy1, dx dy)
 
 
@@ -25892,11 +25926,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 y: 2 * py - cpy
               };
               lastCommand = "Q";
-              return _this100;
+              return _this101;
             };
 
             this.q = function (cpx, cpy, px, py) {
-              return _this100.Q(cpx + lx, cpy + ly, px + lx, py + ly);
+              return _this101.Q(cpx + lx, cpy + ly, px + lx, py + ly);
             }; //T x y (or t dx dy)
 
 
@@ -25905,11 +25939,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                   cpx = _makeReflected2.x,
                   cpy = _makeReflected2.y;
 
-              return _this100.Q(cpx, cpy, px, py);
+              return _this101.Q(cpx, cpy, px, py);
             };
 
             this.t = function (px, py) {
-              return _this100.T(px + lx, py + ly);
+              return _this101.T(px + lx, py + ly);
             }; //A rx ry x-axis-rotation large-arc-flag sweep-flag x y
 
 
@@ -25920,12 +25954,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
               lx = px;
               ly = py;
               lastCommand = "A";
-              return _this100;
+              return _this101;
             }; //a rx ry x-axis-rotation large-arc-flag sweep-flag dx dy
 
 
             this.a = function (rx, ry, xAxisRotation, largeArcFlag, sweepFlag, px, py) {
-              return _this100.A(rx, ry, xAxisRotation, largeArcFlag, sweepFlag, px + lx, py + ly);
+              return _this101.A(rx, ry, xAxisRotation, largeArcFlag, sweepFlag, px + lx, py + ly);
             };
           };
 
@@ -26034,7 +26068,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
           var PathCommandsParser = /*#__PURE__*/function () {
             function PathCommandsParser() {
-              var _this101 = this;
+              var _this102 = this;
 
               _classCallCheck(this, PathCommandsParser);
 
@@ -26049,7 +26083,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                       args[_key21] = arguments[_key21];
                     }
 
-                    _this101._ops.push({
+                    _this102._ops.push({
                       op: op,
                       args: args
                     });
@@ -26096,7 +26130,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "parse",
               value: function parse(d) {
-                var _this102 = this;
+                var _this103 = this;
 
                 var ops = this._ops = [];
                 var tokens = pathTokens(d);
@@ -26120,10 +26154,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                               return tokens.next();
                             }
                           };
-                          subsequentCommand = command(_this102, subsequentCommand, argsProvider) || "Z";
+                          subsequentCommand = command(_this103, subsequentCommand, argsProvider) || "Z";
                         })();
                       } else {
-                        subsequentCommand = command(_this102, cmd, tokens) || "Z";
+                        subsequentCommand = command(_this103, cmd, tokens) || "Z";
                       }
                     }
                   })();
@@ -26283,7 +26317,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "check_",
               value: function check_() {
-                var _this103 = this;
+                var _this104 = this;
 
                 var widthA = this.fontRulerA_.getWidth();
                 var widthB = this.fontRulerB_.getWidth();
@@ -26300,7 +26334,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                     }
                   } else {
                     setTimeout(function () {
-                      _this103.check_();
+                      _this104.check_();
                     }, 50);
                   }
                 } else {
@@ -26339,12 +26373,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "finish_",
               value: function finish_(callbacks) {
-                var _this104 = this;
+                var _this105 = this;
 
                 setTimeout(function () {
-                  _this104.fontRulerA_.remove();
+                  _this105.fontRulerA_.remove();
 
-                  _this104.fontRulerB_.remove();
+                  _this105.fontRulerB_.remove();
 
                   callbacks.forEach(function (cb) {
                     return cb();
@@ -27747,7 +27781,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
           var LayoutObjectGrid = /*#__PURE__*/function () {
             function LayoutObjectGrid(layout, transform) {
-              var _this105 = this;
+              var _this106 = this;
 
               _classCallCheck(this, LayoutObjectGrid);
 
@@ -27764,17 +27798,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                   var id = seqId++;
                   var obj = transform(cell, id);
 
-                  _this105.objects.push(obj);
+                  _this106.objects.push(obj);
 
-                  _this105.objectMap[id] = obj;
-                  col = _this105._findStartCell(col, row);
+                  _this106.objectMap[id] = obj;
+                  col = _this106._findStartCell(col, row);
                   var rowSpan = Number((_a = cell.rowSpan) !== null && _a !== void 0 ? _a : 1);
                   var colSpan = Number((_b = cell.colSpan) !== null && _b !== void 0 ? _b : 1);
                   var endRow = row + rowSpan;
                   var endCol = col + colSpan;
 
                   for (var rowIndex = row; rowIndex < endRow; rowIndex++) {
-                    var objectGridRow = _this105._getObjectGridRow(rowIndex);
+                    var objectGridRow = _this106._getObjectGridRow(rowIndex);
 
                     for (var colIndex = col; colIndex < endCol; colIndex++) {
                       objectGridRow[colIndex] = obj;
@@ -27782,10 +27816,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                   }
 
                   if (colSpan === 1) {
-                    _this105._setWidthDataIfAbsent(col, cell);
+                    _this106._setWidthDataIfAbsent(col, cell);
                   }
 
-                  _this105._useColumnIndex(endCol - 1);
+                  _this106._useColumnIndex(endCol - 1);
 
                   col = endCol;
                 });
@@ -28286,14 +28320,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "_addHeaders",
               value: function _addHeaders(row, header, roots) {
-                var _this106 = this;
+                var _this107 = this;
 
                 var results = [];
 
                 var rowCells = this._headerCellIds[row] || this._newRow(row);
 
                 header.forEach(function (hd) {
-                  var col = _this106._columns.length;
+                  var col = _this107._columns.length;
                   var id = seqId++;
                   var cell = {
                     id: id,
@@ -28309,17 +28343,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                   rowCells[col] = id;
 
                   for (var r = row - 1; r >= 0; r--) {
-                    _this106._headerCellIds[r][col] = roots[r];
+                    _this107._headerCellIds[r][col] = roots[r];
                   }
 
                   if (hd.columns) {
-                    _this106._addHeaders(row + 1, hd.columns, [].concat(_toConsumableArray(roots), [id])).forEach(function (c) {
+                    _this107._addHeaders(row + 1, hd.columns, [].concat(_toConsumableArray(roots), [id])).forEach(function (c) {
                       return results.push(c);
                     });
                   } else {
                     var colDef = hd;
 
-                    _this106._columns.push({
+                    _this107._columns.push({
                       id: seqId++,
                       field: colDef.field,
                       width: colDef.width,
@@ -28333,8 +28367,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                       define: colDef
                     });
 
-                    for (var _r4 = row + 1; _r4 < _this106._headerCellIds.length; _r4++) {
-                      _this106._headerCellIds[_r4][col] = id;
+                    for (var _r4 = row + 1; _r4 < _this107._headerCellIds.length; _r4++) {
+                      _this107._headerCellIds[_r4][col] = id;
                     }
                   }
                 });
@@ -29249,7 +29283,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "highlightBgColor",
               get: function get() {
-                var _this107 = this;
+                var _this108 = this;
 
                 if (this.hasProperty(["highlightBgColor"])) {
                   var _this$_10 = this[_],
@@ -29260,7 +29294,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
                 return function (args) {
-                  var color = args.row < args.grid.frozenRowCount ? _this107.frozenRowsBgColor : _this107.defaultBgColor;
+                  var color = args.row < args.grid.frozenRowCount ? _this108.frozenRowsBgColor : _this108.defaultBgColor;
 
                   if (typeof color === "function") {
                     return color(args);
@@ -30261,45 +30295,45 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }, {
               key: "_bindGridEvent",
               value: function _bindGridEvent(grid) {
-                var _this108 = this;
+                var _this109 = this;
 
                 grid.listen(LG_EVENT_TYPE_1.LG_EVENT_TYPE.MOUSEOVER_CELL, function (e) {
                   if (e.related) {
-                    if (_this108._isAttachCell(e.col, e.row)) {
+                    if (_this109._isAttachCell(e.col, e.row)) {
                       return;
                     }
                   }
 
-                  _this108._attach(e.col, e.row);
+                  _this109._attach(e.col, e.row);
                 });
                 grid.listen(LG_EVENT_TYPE_1.LG_EVENT_TYPE.MOUSEOUT_CELL, function (e) {
                   if (e.related) {
-                    if (_this108._isAttachCell(e.related.col, e.related.row)) {
+                    if (_this109._isAttachCell(e.related.col, e.related.row)) {
                       return;
                     }
                   }
 
-                  _this108._detach();
+                  _this109._detach();
                 });
                 grid.listen(LG_EVENT_TYPE_1.LG_EVENT_TYPE.SELECTED_CELL, function (e) {
-                  if (_this108._isAttachCell(e.col, e.row)) {
-                    _this108._detach();
+                  if (_this109._isAttachCell(e.col, e.row)) {
+                    _this109._detach();
                   }
                 });
                 grid.listen(LG_EVENT_TYPE_1.LG_EVENT_TYPE.SCROLL, function () {
-                  var info = _this108._attachInfo;
+                  var info = _this109._attachInfo;
 
                   if (!info) {
                     return;
                   }
 
-                  _this108._move(info.range.start.col, info.range.start.row);
+                  _this109._move(info.range.start.col, info.range.start.row);
                 });
                 grid.listen(LG_EVENT_TYPE_1.LG_EVENT_TYPE.CHANGED_VALUE, function (e) {
-                  if (_this108._isAttachCell(e.col, e.row)) {
-                    _this108._detach();
+                  if (_this109._isAttachCell(e.col, e.row)) {
+                    _this109._detach();
 
-                    _this108._attach(e.col, e.row);
+                    _this109._attach(e.col, e.row);
                   }
                 });
               }

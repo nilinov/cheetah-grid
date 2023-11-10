@@ -4294,12 +4294,12 @@ Object.defineProperty(exports, "RadioEditor", {
   }
 });
 
-const SmallDialogInputEditor_1 = __webpack_require__(/*! ./action/SmallDialogInputEditor */ "./columns/action/SmallDialogInputEditor.js");
+const SampleDialogInputEditor_1 = __webpack_require__(/*! ./action/SampleDialogInputEditor */ "./columns/action/SampleDialogInputEditor.js");
 
 Object.defineProperty(exports, "SmallDialogInputEditor", {
   enumerable: true,
   get: function () {
-    return SmallDialogInputEditor_1.SmallDialogInputEditor;
+    return SampleDialogInputEditor_1.SmallDialogInputEditor;
   }
 }); // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
@@ -4327,7 +4327,7 @@ class ImmutableRadioEditor extends RadioEditor_1.RadioEditor {
 } // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 
-class ImmutableInputEditor extends SmallDialogInputEditor_1.SmallDialogInputEditor {
+class ImmutableInputEditor extends SampleDialogInputEditor_1.SmallDialogInputEditor {
   get disabled() {
     return this._disabled;
   }
@@ -5847,10 +5847,10 @@ function isRejectValue(pasteValue) {
 
 /***/ }),
 
-/***/ "./columns/action/SmallDialogInputEditor.js":
-/*!**************************************************!*\
-  !*** ./columns/action/SmallDialogInputEditor.js ***!
-  \**************************************************/
+/***/ "./columns/action/SampleDialogInputEditor.js":
+/*!***************************************************!*\
+  !*** ./columns/action/SampleDialogInputEditor.js ***!
+  \***************************************************/
 /*! no static exports found */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -5863,13 +5863,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.SmallDialogInputEditor = void 0;
 
-const BaseInputEditor_1 = __webpack_require__(/*! ./BaseInputEditor */ "./columns/action/BaseInputEditor.js");
-
-const SmallDialogInputElement_1 = __webpack_require__(/*! ./internal/SmallDialogInputElement */ "./columns/action/internal/SmallDialogInputElement.js");
-
 const symbolManager_1 = __webpack_require__(/*! ../../internal/symbolManager */ "./internal/symbolManager.js");
 
 const utils_1 = __webpack_require__(/*! ../../internal/utils */ "./internal/utils.js");
+
+const BaseInputEditor_1 = __webpack_require__(/*! ./BaseInputEditor */ "./columns/action/BaseInputEditor.js");
+
+const action_utils_1 = __webpack_require__(/*! ./action-utils */ "./columns/action/action-utils.js");
+
+const SmallDialogInputElement_1 = __webpack_require__(/*! ./internal/SmallDialogInputElement */ "./columns/action/internal/SmallDialogInputElement.js");
 
 const _ = (0, symbolManager_1.getSmallDialogInputEditorStateId)();
 
@@ -6002,6 +6004,32 @@ class SmallDialogInputEditor extends BaseInputEditor_1.BaseInputEditor {
 
   onSetInputAttrsInternal(grid, _cell, input) {
     SmallDialogInputElement_1.SmallDialogInputElement.setInputAttrs(this, grid, input);
+  }
+
+  bindGridEvent(grid, cellId) {
+    const open = cell => {
+      if ((0, action_utils_1.isReadOnlyRecord)(this.readOnly, grid, cell.row) || (0, action_utils_1.isDisabledRecord)(this.disabled, grid, cell.row)) {
+        return false;
+      }
+
+      this.onOpenCellInternal(grid, cell);
+      return true;
+    };
+
+    function isTarget(col, row) {
+      return grid.getLayoutCellId(col, row) === cellId;
+    }
+
+    return [...super.bindGridEvent(grid, cellId), grid.listen('click_cell', cell => {
+      if (!isTarget(cell.col, cell.row)) {
+        return;
+      }
+
+      open({
+        col: cell.col,
+        row: cell.row
+      });
+    })];
   }
 
 }

@@ -154,8 +154,8 @@ function drawInlines<T>(
   function drawInline(
     inline: Inline,
     offsetLeft: number,
-    offsetRight: number
-  ): void {
+    offsetRight: number,
+    ): void {
     if (inline.canDraw()) {
       ctx.save();
       try {
@@ -185,6 +185,7 @@ function drawInlines<T>(
       //noop
     }
   }
+
   if (inlines.length === 1) {
     //1件の場合は幅計算が不要なため分岐
     const inline = inlines[0];

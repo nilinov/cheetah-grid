@@ -9,6 +9,8 @@ export type InlineImageConstructorOption = {
     imageTop?: number;
     imageWidth?: number;
     imageHeight?: number;
+    offsetTop?: number;
+    offsetLeft?: number;
 };
 export declare class InlineImage extends Inline {
     private _src;
@@ -18,10 +20,12 @@ export declare class InlineImage extends Inline {
     private _imageTop?;
     private _imageWidth?;
     private _imageHeight?;
+    private _offsetTop?;
+    private _offsetLeft?;
     private _onloaded;
     private _inlineImgPromise;
     private _inlineImg;
-    constructor({ src, width, height, imageLeft, imageTop, imageWidth, imageHeight, }: InlineImageConstructorOption);
+    constructor({ src, width, height, imageLeft, imageTop, imageWidth, imageHeight, offsetTop, offsetLeft, }: InlineImageConstructorOption);
     _loadImage(src: string): void;
     width(_arg: {
         ctx: CanvasRenderingContext2D;

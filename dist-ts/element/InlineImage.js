@@ -5,7 +5,7 @@ const Inline_1 = require("./Inline");
 const imgs_1 = require("../internal/imgs");
 const utils_1 = require("../internal/utils");
 class InlineImage extends Inline_1.Inline {
-    constructor({ src, width, height, imageLeft, imageTop, imageWidth, imageHeight, }) {
+    constructor({ src, width, height, imageLeft, imageTop, imageWidth, imageHeight, offsetTop, offsetLeft, }) {
         super();
         this._inlineImgPromise = null;
         this._inlineImg = null;
@@ -16,6 +16,8 @@ class InlineImage extends Inline_1.Inline {
         this._imageTop = imageTop;
         this._imageWidth = imageWidth;
         this._imageHeight = imageHeight;
+        this._offsetTop = offsetTop;
+        this._offsetLeft = offsetLeft;
         this._onloaded = [];
         if ((0, utils_1.isPromise)(src)) {
             src.then((s) => {
@@ -58,13 +60,14 @@ class InlineImage extends Inline_1.Inline {
         }
     }
     draw({ ctx, canvashelper, rect, offset, offsetLeft, offsetRight, offsetTop, offsetBottom, }) {
+        var _a, _b;
         const img = this._inlineImg;
         canvashelper.drawInlineImageRect(ctx, img, this._imageLeft || 0, this._imageTop || 0, this._imageWidth || img.width, this._imageHeight || img.height, this._width || img.width, this._height || img.height, rect.left, rect.top, rect.width, rect.height, {
             offset: offset + 1,
             padding: {
-                left: offsetLeft,
+                left: offsetLeft + ((_a = this._offsetLeft) !== null && _a !== void 0 ? _a : 0),
                 right: offsetRight,
-                top: offsetTop,
+                top: offsetTop + ((_b = this._offsetTop) !== null && _b !== void 0 ? _b : 0),
                 bottom: offsetBottom,
             },
         });

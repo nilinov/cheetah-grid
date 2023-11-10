@@ -92,8 +92,8 @@ function iconOf(icon) {
             src: icon.src,
             width: icon.width,
             height: icon.width,
-            imageTop: icon.offsetTop,
-            imageLeft: icon.offsetLeft,
+            offsetTop: icon.offsetTop,
+            offsetLeft: icon.offsetLeft,
         });
     }
     if (icon.svg) {

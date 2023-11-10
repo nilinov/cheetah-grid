@@ -12,6 +12,8 @@ export type InlineImageConstructorOption = {
   imageTop?: number;
   imageWidth?: number;
   imageHeight?: number;
+  offsetTop?: number;
+  offsetLeft?: number;
 };
 
 export class InlineImage extends Inline {
@@ -22,6 +24,8 @@ export class InlineImage extends Inline {
   private _imageTop?: number;
   private _imageWidth?: number;
   private _imageHeight?: number;
+  private _offsetTop?: number;
+  private _offsetLeft?: number;
   private _onloaded: AnyFunction[];
   private _inlineImgPromise: MaybePromise<HTMLImageElement> | null = null;
   private _inlineImg: HTMLImageElement | null = null;
@@ -33,6 +37,8 @@ export class InlineImage extends Inline {
     imageTop,
     imageWidth,
     imageHeight,
+    offsetTop,
+    offsetLeft,
   }: InlineImageConstructorOption) {
     super();
     this._src = src;
@@ -42,6 +48,8 @@ export class InlineImage extends Inline {
     this._imageTop = imageTop;
     this._imageWidth = imageWidth;
     this._imageHeight = imageHeight;
+    this._offsetTop = offsetTop;
+    this._offsetLeft = offsetLeft;
 
     this._onloaded = [];
 
@@ -114,9 +122,9 @@ export class InlineImage extends Inline {
       {
         offset: offset + 1,
         padding: {
-          left: offsetLeft,
+          left: offsetLeft + (this._offsetLeft ?? 0),
           right: offsetRight,
-          top: offsetTop,
+          top: offsetTop + (this._offsetTop ?? 0),
           bottom: offsetBottom,
         },
       }

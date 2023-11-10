@@ -17720,7 +17720,9 @@ class InlineImage extends Inline_1.Inline {
     imageLeft,
     imageTop,
     imageWidth,
-    imageHeight
+    imageHeight,
+    offsetTop,
+    offsetLeft
   }) {
     super();
     this._inlineImgPromise = null;
@@ -17732,6 +17734,8 @@ class InlineImage extends Inline_1.Inline {
     this._imageTop = imageTop;
     this._imageWidth = imageWidth;
     this._imageHeight = imageHeight;
+    this._offsetTop = offsetTop;
+    this._offsetLeft = offsetLeft;
     this._onloaded = [];
 
     if ((0, utils_1.isPromise)(src)) {
@@ -17793,13 +17797,15 @@ class InlineImage extends Inline_1.Inline {
     offsetTop,
     offsetBottom
   }) {
+    var _a, _b;
+
     const img = this._inlineImg;
     canvashelper.drawInlineImageRect(ctx, img, this._imageLeft || 0, this._imageTop || 0, this._imageWidth || img.width, this._imageHeight || img.height, this._width || img.width, this._height || img.height, rect.left, rect.top, rect.width, rect.height, {
       offset: offset + 1,
       padding: {
-        left: offsetLeft,
+        left: offsetLeft + ((_a = this._offsetLeft) !== null && _a !== void 0 ? _a : 0),
         right: offsetRight,
-        top: offsetTop,
+        top: offsetTop + ((_b = this._offsetTop) !== null && _b !== void 0 ? _b : 0),
         bottom: offsetBottom
       }
     });
@@ -18181,8 +18187,8 @@ function iconOf(icon) {
       src: icon.src,
       width: icon.width,
       height: icon.width,
-      imageTop: icon.offsetTop,
-      imageLeft: icon.offsetLeft
+      offsetTop: icon.offsetTop,
+      offsetLeft: icon.offsetLeft
     });
   }
 

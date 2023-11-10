@@ -20106,7 +20106,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                   imageLeft = _ref57.imageLeft,
                   imageTop = _ref57.imageTop,
                   imageWidth = _ref57.imageWidth,
-                  imageHeight = _ref57.imageHeight;
+                  imageHeight = _ref57.imageHeight,
+                  offsetTop = _ref57.offsetTop,
+                  offsetLeft = _ref57.offsetLeft;
 
               _classCallCheck(this, InlineImage);
 
@@ -20120,6 +20122,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
               _this85._imageTop = imageTop;
               _this85._imageWidth = imageWidth;
               _this85._imageHeight = imageHeight;
+              _this85._offsetTop = offsetTop;
+              _this85._offsetLeft = offsetLeft;
               _this85._onloaded = [];
 
               if ((0, utils_1.isPromise)(src)) {
@@ -20196,13 +20200,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                     offsetRight = _ref58.offsetRight,
                     offsetTop = _ref58.offsetTop,
                     offsetBottom = _ref58.offsetBottom;
+
+                var _a, _b;
+
                 var img = this._inlineImg;
                 canvashelper.drawInlineImageRect(ctx, img, this._imageLeft || 0, this._imageTop || 0, this._imageWidth || img.width, this._imageHeight || img.height, this._width || img.width, this._height || img.height, rect.left, rect.top, rect.width, rect.height, {
                   offset: offset + 1,
                   padding: {
-                    left: offsetLeft,
+                    left: offsetLeft + ((_a = this._offsetLeft) !== null && _a !== void 0 ? _a : 0),
                     right: offsetRight,
-                    top: offsetTop,
+                    top: offsetTop + ((_b = this._offsetTop) !== null && _b !== void 0 ? _b : 0),
                     bottom: offsetBottom
                   }
                 });
@@ -20661,8 +20668,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 src: icon.src,
                 width: icon.width,
                 height: icon.width,
-                imageTop: icon.offsetTop,
-                imageLeft: icon.offsetLeft
+                offsetTop: icon.offsetTop,
+                offsetLeft: icon.offsetLeft
               });
             }
 

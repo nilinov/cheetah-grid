@@ -17,7 +17,7 @@ import { Editor } from "./action/Editor";
 import { InlineInputEditor } from "./action/InlineInputEditor";
 import { InlineMenuEditor } from "./action/InlineMenuEditor";
 import { RadioEditor } from "./action/RadioEditor";
-import { SmallDialogInputEditor } from "./action/SampleDialogInputEditor";
+import { SmallDialogInputEditor } from "./action/SmallDialogInputEditor";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 class ImmutableCheckEditor extends CheckEditor<any> {

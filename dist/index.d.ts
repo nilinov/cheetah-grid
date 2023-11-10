@@ -1155,7 +1155,7 @@ declare module 'cheetah-grid/columns/action' {
     import { InlineInputEditor } from "cheetah-grid/columns/action/InlineInputEditor";
     import { InlineMenuEditor } from "cheetah-grid/columns/action/InlineMenuEditor";
     import { RadioEditor } from "cheetah-grid/columns/action/RadioEditor";
-    import { SmallDialogInputEditor } from "cheetah-grid/columns/action/SampleDialogInputEditor";
+    import { SmallDialogInputEditor } from "cheetah-grid/columns/action/SmallDialogInputEditor";
     class ImmutableCheckEditor extends CheckEditor<any> {
         get disabled(): RecordBoolean;
         get readOnly(): RecordBoolean;
@@ -2653,7 +2653,7 @@ declare module 'cheetah-grid/columns/action/RadioEditor' {
     }
 }
 
-declare module 'cheetah-grid/columns/action/SampleDialogInputEditor' {
+declare module 'cheetah-grid/columns/action/SmallDialogInputEditor' {
     import type { CellAddress, EventListenerId, LayoutObjectId, ListGridAPI, MaybePromise, SmallDialogInputEditorOption } from "cheetah-grid/ts-types";
     import { BaseInputEditor } from "cheetah-grid/columns/action/BaseInputEditor";
     type GetValueResult<T, R> = (value: string, info: {

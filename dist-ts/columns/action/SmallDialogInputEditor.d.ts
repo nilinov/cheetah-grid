@@ -1,4 +1,4 @@
-import type { CellAddress, ListGridAPI, MaybePromise, SmallDialogInputEditorOption } from "../../ts-types";
+import type { CellAddress, EventListenerId, LayoutObjectId, ListGridAPI, MaybePromise, SmallDialogInputEditorOption } from "../../ts-types";
 import { BaseInputEditor } from "./BaseInputEditor";
 type GetValueResult<T, R> = (value: string, info: {
     grid: ListGridAPI<T>;
@@ -28,5 +28,6 @@ export declare class SmallDialogInputEditor<T> extends BaseInputEditor<T> {
     onChangeDisabledInternal(): void;
     onChangeReadOnlyInternal(): void;
     onSetInputAttrsInternal(grid: ListGridAPI<T>, _cell: CellAddress, input: HTMLInputElement): void;
+    bindGridEvent(grid: ListGridAPI<T>, cellId: LayoutObjectId): EventListenerId[];
 }
 export {};

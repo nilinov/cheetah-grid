@@ -4911,14 +4911,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }
           });
 
-          var SampleDialogInputEditor_1 = __webpack_require__(
-          /*! ./action/SampleDialogInputEditor */
-          "./columns/action/SampleDialogInputEditor.js");
+          var SmallDialogInputEditor_1 = __webpack_require__(
+          /*! ./action/SmallDialogInputEditor */
+          "./columns/action/SmallDialogInputEditor.js");
 
           Object.defineProperty(exports, "SmallDialogInputEditor", {
             enumerable: true,
             get: function get() {
-              return SampleDialogInputEditor_1.SmallDialogInputEditor;
+              return SmallDialogInputEditor_1.SmallDialogInputEditor;
             }
           }); // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
@@ -4976,8 +4976,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           }(RadioEditor_1.RadioEditor); // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 
-          var ImmutableInputEditor = /*#__PURE__*/function (_SampleDialogInputEdi) {
-            _inherits(ImmutableInputEditor, _SampleDialogInputEdi);
+          var ImmutableInputEditor = /*#__PURE__*/function (_SmallDialogInputEdit) {
+            _inherits(ImmutableInputEditor, _SmallDialogInputEdit);
 
             var _super4 = _createSuper(ImmutableInputEditor);
 
@@ -5000,7 +5000,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }]);
 
             return ImmutableInputEditor;
-          }(SampleDialogInputEditor_1.SmallDialogInputEditor);
+          }(SmallDialogInputEditor_1.SmallDialogInputEditor);
 
           exports.ACTIONS = {
             CHECK: new ImmutableCheckEditor(),
@@ -6796,17 +6796,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         },
 
         /***/
-        "./columns/action/SampleDialogInputEditor.js":
-        /*!***************************************************!*\
-          !*** ./columns/action/SampleDialogInputEditor.js ***!
-          \***************************************************/
+        "./columns/action/SmallDialogInputEditor.js":
+        /*!**************************************************!*\
+          !*** ./columns/action/SmallDialogInputEditor.js ***!
+          \**************************************************/
 
         /*! no static exports found */
 
         /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 
         /***/
-        function columnsActionSampleDialogInputEditorJs(module, exports, __webpack_require__) {
+        function columnsActionSmallDialogInputEditorJs(module, exports, __webpack_require__) {
           "use strict";
 
           Object.defineProperty(exports, "__esModule", {

@@ -4294,12 +4294,12 @@ Object.defineProperty(exports, "RadioEditor", {
   }
 });
 
-const SampleDialogInputEditor_1 = __webpack_require__(/*! ./action/SampleDialogInputEditor */ "./columns/action/SampleDialogInputEditor.js");
+const SmallDialogInputEditor_1 = __webpack_require__(/*! ./action/SmallDialogInputEditor */ "./columns/action/SmallDialogInputEditor.js");
 
 Object.defineProperty(exports, "SmallDialogInputEditor", {
   enumerable: true,
   get: function () {
-    return SampleDialogInputEditor_1.SmallDialogInputEditor;
+    return SmallDialogInputEditor_1.SmallDialogInputEditor;
   }
 }); // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
@@ -4327,7 +4327,7 @@ class ImmutableRadioEditor extends RadioEditor_1.RadioEditor {
 } // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 
-class ImmutableInputEditor extends SampleDialogInputEditor_1.SmallDialogInputEditor {
+class ImmutableInputEditor extends SmallDialogInputEditor_1.SmallDialogInputEditor {
   get disabled() {
     return this._disabled;
   }
@@ -5847,10 +5847,10 @@ function isRejectValue(pasteValue) {
 
 /***/ }),
 
-/***/ "./columns/action/SampleDialogInputEditor.js":
-/*!***************************************************!*\
-  !*** ./columns/action/SampleDialogInputEditor.js ***!
-  \***************************************************/
+/***/ "./columns/action/SmallDialogInputEditor.js":
+/*!**************************************************!*\
+  !*** ./columns/action/SmallDialogInputEditor.js ***!
+  \**************************************************/
 /*! no static exports found */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {

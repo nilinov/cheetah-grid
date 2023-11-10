@@ -1,14 +1,18 @@
+import { getSmallDialogInputEditorStateId } from "../../internal/symbolManager";
+import { obj } from "../../internal/utils";
 import type {
   CellAddress,
+  EventListenerId,
+  LayoutObjectId,
   ListGridAPI,
   MaybePromise,
   SmallDialogInputEditorOption,
 } from "../../ts-types";
 import type { GridInternal, InputEditorState } from "../../ts-types-internal";
 import { BaseInputEditor } from "./BaseInputEditor";
+import { isDisabledRecord, isReadOnlyRecord } from "./action-utils";
 import { SmallDialogInputElement } from "./internal/SmallDialogInputElement";
-import { getSmallDialogInputEditorStateId } from "../../internal/symbolManager";
-import { obj } from "../../internal/utils";
+
 const _ = getSmallDialogInputEditorStateId();
 
 function getState<T>(grid: GridInternal<T>): InputEditorState {
@@ -141,5 +145,38 @@ export class SmallDialogInputEditor<T> extends BaseInputEditor<T> {
     input: HTMLInputElement
   ): void {
     SmallDialogInputElement.setInputAttrs(this, grid, input);
+  }
+
+  bindGridEvent(
+    grid: ListGridAPI<T>,
+    cellId: LayoutObjectId
+  ): EventListenerId[] {
+    const open = (cell: CellAddress): boolean => {
+      if (
+        isReadOnlyRecord(this.readOnly, grid, cell.row) ||
+        isDisabledRecord(this.disabled, grid, cell.row)
+      ) {
+        return false;
+      }
+      this.onOpenCellInternal(grid, cell);
+      return true;
+    };
+
+    function isTarget(col: number, row: number): boolean {
+      return grid.getLayoutCellId(col, row) === cellId;
+    }
+
+    return [
+      ...super.bindGridEvent(grid, cellId),
+      grid.listen('click_cell', (cell) => {
+        if (!isTarget(cell.col, cell.row)) {
+          return;
+        }
+        open({
+          col: cell.col,
+          row: cell.row,
+        });
+      }),
+    ];
   }
 }

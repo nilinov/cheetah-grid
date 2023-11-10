@@ -17,8 +17,8 @@ const InlineMenuEditor_1 = require("./action/InlineMenuEditor");
 Object.defineProperty(exports, "InlineMenuEditor", { enumerable: true, get: function () { return InlineMenuEditor_1.InlineMenuEditor; } });
 const RadioEditor_1 = require("./action/RadioEditor");
 Object.defineProperty(exports, "RadioEditor", { enumerable: true, get: function () { return RadioEditor_1.RadioEditor; } });
-const SampleDialogInputEditor_1 = require("./action/SampleDialogInputEditor");
-Object.defineProperty(exports, "SmallDialogInputEditor", { enumerable: true, get: function () { return SampleDialogInputEditor_1.SmallDialogInputEditor; } });
+const SmallDialogInputEditor_1 = require("./action/SmallDialogInputEditor");
+Object.defineProperty(exports, "SmallDialogInputEditor", { enumerable: true, get: function () { return SmallDialogInputEditor_1.SmallDialogInputEditor; } });
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 class ImmutableCheckEditor extends CheckEditor_1.CheckEditor {
     get disabled() {
@@ -38,7 +38,7 @@ class ImmutableRadioEditor extends RadioEditor_1.RadioEditor {
     }
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-class ImmutableInputEditor extends SampleDialogInputEditor_1.SmallDialogInputEditor {
+class ImmutableInputEditor extends SmallDialogInputEditor_1.SmallDialogInputEditor {
     get disabled() {
         return this._disabled;
     }

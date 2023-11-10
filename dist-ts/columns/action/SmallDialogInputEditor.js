@@ -1,10 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SmallDialogInputEditor = void 0;
-const BaseInputEditor_1 = require("./BaseInputEditor");
-const SmallDialogInputElement_1 = require("./internal/SmallDialogInputElement");
 const symbolManager_1 = require("../../internal/symbolManager");
 const utils_1 = require("../../internal/utils");
+const BaseInputEditor_1 = require("./BaseInputEditor");
+const action_utils_1 = require("./action-utils");
+const SmallDialogInputElement_1 = require("./internal/SmallDialogInputElement");
 const _ = (0, symbolManager_1.getSmallDialogInputEditorStateId)();
 function getState(grid) {
     let state = grid[_];
@@ -108,6 +109,31 @@ class SmallDialogInputEditor extends BaseInputEditor_1.BaseInputEditor {
     }
     onSetInputAttrsInternal(grid, _cell, input) {
         SmallDialogInputElement_1.SmallDialogInputElement.setInputAttrs(this, grid, input);
+    }
+    bindGridEvent(grid, cellId) {
+        const open = (cell) => {
+            if ((0, action_utils_1.isReadOnlyRecord)(this.readOnly, grid, cell.row) ||
+                (0, action_utils_1.isDisabledRecord)(this.disabled, grid, cell.row)) {
+                return false;
+            }
+            this.onOpenCellInternal(grid, cell);
+            return true;
+        };
+        function isTarget(col, row) {
+            return grid.getLayoutCellId(col, row) === cellId;
+        }
+        return [
+            ...super.bindGridEvent(grid, cellId),
+            grid.listen('click_cell', (cell) => {
+                if (!isTarget(cell.col, cell.row)) {
+                    return;
+                }
+                open({
+                    col: cell.col,
+                    row: cell.row,
+                });
+            }),
+        ];
     }
 }
 exports.SmallDialogInputEditor = SmallDialogInputEditor;

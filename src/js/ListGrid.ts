@@ -392,7 +392,7 @@ function _borderWithState<T>(
       ) {
         borderColorCell = (layoutMap!.getBody(col, row)!.style as any)(
           grid[_].records![layoutMap.getRecordIndexByRow(row)]
-        );
+        )?.borderColor;
       }
 
       if (borderColorCell) {

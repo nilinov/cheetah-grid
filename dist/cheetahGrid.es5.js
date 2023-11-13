@@ -3362,7 +3362,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
           function _borderWithState(grid, helper, context) {
-            var _b, _c, _d, _e, _f, _g;
+            var _b, _c, _d, _e, _f, _g, _h;
 
             var col = context.col,
                 row = context.row;
@@ -3405,7 +3405,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 }
 
                 if (typeof ((_f = layoutMap.getBody(col, row)) === null || _f === void 0 ? void 0 : _f.style) == "function" && ((_g = grid[_].records) === null || _g === void 0 ? void 0 : _g.length)) {
-                  borderColorCell = layoutMap.getBody(col, row).style(grid[_].records[layoutMap.getRecordIndexByRow(row)]);
+                  borderColorCell = (_h = layoutMap.getBody(col, row).style(grid[_].records[layoutMap.getRecordIndexByRow(row)])) === null || _h === void 0 ? void 0 : _h.borderColor;
                 }
 
                 if (borderColorCell) {

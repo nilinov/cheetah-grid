@@ -27,16 +27,16 @@ const { EVENT_TYPE } = BaseStyle_1.BaseStyle;
 exports.EVENT_TYPE = EVENT_TYPE;
 function of(columnStyle, 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-record, StyleClassDef = Style_1.Style) {
+record, StyleClassDef = Style_1.Style, col, row) {
     if (columnStyle) {
         if (columnStyle instanceof BaseStyle_1.BaseStyle) {
             return columnStyle;
         }
         else if (typeof columnStyle === "function") {
-            return of(columnStyle(record), record, StyleClassDef);
+            return of(columnStyle(record, col, row), record, StyleClassDef, col, row);
         }
         else if (record && columnStyle in record) {
-            return of(record[columnStyle], record, StyleClassDef);
+            return of(record[columnStyle], record, StyleClassDef, col, row);
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return new StyleClassDef(columnStyle);

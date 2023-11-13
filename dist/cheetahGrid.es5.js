@@ -9960,14 +9960,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           function of(columnStyle, // eslint-disable-next-line @typescript-eslint/no-explicit-any
           record) {
             var StyleClassDef = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Style_1.Style;
+            var col = arguments.length > 3 ? arguments[3] : undefined;
+            var row = arguments.length > 4 ? arguments[4] : undefined;
 
             if (columnStyle) {
               if (columnStyle instanceof BaseStyle_1.BaseStyle) {
                 return columnStyle;
               } else if (typeof columnStyle === "function") {
-                return of(columnStyle(record), record, StyleClassDef);
+                return of(columnStyle(record, col, row), record, StyleClassDef, col, row);
               } else if (record && columnStyle in record) {
-                return of(record[columnStyle], record, StyleClassDef);
+                return of(record[columnStyle], record, StyleClassDef, col, row);
               } // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 
@@ -11620,7 +11622,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                         return;
                       }
 
-                      var actStyle = styleContents.of(style, record, _this52.StyleClass);
+                      var actStyle = styleContents.of(style, record, _this52.StyleClass, context.col, context.row);
 
                       _this52.drawInternal(_this52.convertInternal(val), currentContext, actStyle, helper, grid, info);
 
@@ -11645,7 +11647,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                     }
                   });
                 } else {
-                  var actStyle = styleContents.of(style, record, this.StyleClass);
+                  var actStyle = styleContents.of(style, record, this.StyleClass, context.col, context.row);
                   this.drawInternal(this.convertInternal(cellValue), context, actStyle, helper, grid, info);
                   this.drawMessageInternal(info.getMessage(), context, actStyle, helper, grid, info);
                   this.drawIndicatorsInternal(context, actStyle, helper, grid, info); //フェードインの場合透過するため背景を透過で上書き

@@ -127,7 +127,9 @@ export type ColumnStyleOption =
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   | ((
-      record: any
+      record: any,
+      col?: number,
+      row?: number,
     ) =>
       | string
       | ColumnStyle

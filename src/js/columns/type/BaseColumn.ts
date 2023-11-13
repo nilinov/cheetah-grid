@@ -194,7 +194,7 @@ export abstract class BaseColumn<T> implements ColumnTypeAPI {
             return;
           }
 
-          const actStyle = styleContents.of(style, record, this.StyleClass);
+          const actStyle = styleContents.of(style, record, this.StyleClass, context.col, context.row);
           this.drawInternal(
             this.convertInternal(val),
             currentContext,
@@ -248,7 +248,7 @@ export abstract class BaseColumn<T> implements ColumnTypeAPI {
         }
       });
     } else {
-      const actStyle = styleContents.of(style, record, this.StyleClass);
+      const actStyle = styleContents.of(style, record, this.StyleClass, context.col, context.row);
       this.drawInternal(
         this.convertInternal(cellValue),
         context,

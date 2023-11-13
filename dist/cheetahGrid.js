@@ -8681,14 +8681,14 @@ const {
 exports.EVENT_TYPE = EVENT_TYPE;
 
 function of(columnStyle, // eslint-disable-next-line @typescript-eslint/no-explicit-any
-record, StyleClassDef = Style_1.Style) {
+record, StyleClassDef = Style_1.Style, col, row) {
   if (columnStyle) {
     if (columnStyle instanceof BaseStyle_1.BaseStyle) {
       return columnStyle;
     } else if (typeof columnStyle === "function") {
-      return of(columnStyle(record), record, StyleClassDef);
+      return of(columnStyle(record, col, row), record, StyleClassDef, col, row);
     } else if (record && columnStyle in record) {
-      return of(record[columnStyle], record, StyleClassDef);
+      return of(record[columnStyle], record, StyleClassDef, col, row);
     } // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 
@@ -10017,7 +10017,7 @@ class BaseColumn {
             return;
           }
 
-          const actStyle = styleContents.of(style, record, this.StyleClass);
+          const actStyle = styleContents.of(style, record, this.StyleClass, context.col, context.row);
           this.drawInternal(this.convertInternal(val), currentContext, actStyle, helper, grid, info);
           this.drawMessageInternal(message, currentContext, actStyle, helper, grid, info);
           this.drawIndicatorsInternal(currentContext, actStyle, helper, grid, info);
@@ -10041,7 +10041,7 @@ class BaseColumn {
         }
       });
     } else {
-      const actStyle = styleContents.of(style, record, this.StyleClass);
+      const actStyle = styleContents.of(style, record, this.StyleClass, context.col, context.row);
       this.drawInternal(this.convertInternal(cellValue), context, actStyle, helper, grid, info);
       this.drawMessageInternal(info.getMessage(), context, actStyle, helper, grid, info);
       this.drawIndicatorsInternal(context, actStyle, helper, grid, info); //フェードインの場合透過するため背景を透過で上書き

@@ -150,7 +150,7 @@ class BaseColumn {
                     if (!drawRect) {
                         return;
                     }
-                    const actStyle = styleContents.of(style, record, this.StyleClass);
+                    const actStyle = styleContents.of(style, record, this.StyleClass, context.col, context.row);
                     this.drawInternal(this.convertInternal(val), currentContext, actStyle, helper, grid, info);
                     this.drawMessageInternal(message, currentContext, actStyle, helper, grid, info);
                     this.drawIndicatorsInternal(currentContext, actStyle, helper, grid, info);
@@ -172,7 +172,7 @@ class BaseColumn {
             });
         }
         else {
-            const actStyle = styleContents.of(style, record, this.StyleClass);
+            const actStyle = styleContents.of(style, record, this.StyleClass, context.col, context.row);
             this.drawInternal(this.convertInternal(cellValue), context, actStyle, helper, grid, info);
             this.drawMessageInternal(info.getMessage(), context, actStyle, helper, grid, info);
             this.drawIndicatorsInternal(context, actStyle, helper, grid, info);

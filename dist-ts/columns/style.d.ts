@@ -15,4 +15,4 @@ declare const EVENT_TYPE: {
 };
 export { EVENT_TYPE, BaseStyle, Style, NumberStyle, CheckStyle, RadioStyle, ButtonStyle, ImageStyle, IconStyle, PercentCompleteBarStyle, MultilineTextStyle, MenuStyle, };
 export type { BaseStyleOption, ButtonStyleOption, CheckStyleOption, IconStyleOption, ImageStyleOption, MenuStyleOption, MultilineTextStyleOption, NumberStyleOption, PercentCompleteBarStyleOption, StyleOption, };
-export declare function of(columnStyle: ColumnStyleOption | null | undefined, record: any, StyleClassDef?: typeof BaseStyle): BaseStyle;
+export declare function of(columnStyle: ColumnStyleOption | null | undefined, record: any, StyleClassDef: typeof BaseStyle | undefined, col: number, row: number): BaseStyle;

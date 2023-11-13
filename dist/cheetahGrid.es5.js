@@ -3362,6 +3362,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
           function _borderWithState(grid, helper, context) {
+            var _b, _c, _d, _e, _f, _g;
+
             var col = context.col,
                 row = context.row;
             var sel = grid.selection.select;
@@ -3393,7 +3395,25 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 option.borderColor = helper.theme.frozenRowsBorderColor;
               }
 
-              helper.border(context, option); //追加処理
+              helper.border(context, option);
+
+              if ((_b = layoutMap.getBody(col, row)) === null || _b === void 0 ? void 0 : _b.style) {
+                var borderColorCell = "";
+
+                if (_typeof((_c = layoutMap.getBody(col, row)) === null || _c === void 0 ? void 0 : _c.style) == "object") {
+                  borderColorCell = (_e = (_d = layoutMap.getBody(col, row).style) === null || _d === void 0 ? void 0 : _d.borderColor) !== null && _e !== void 0 ? _e : "";
+                }
+
+                if (typeof ((_f = layoutMap.getBody(col, row)) === null || _f === void 0 ? void 0 : _f.style) == "function" && ((_g = grid[_].records) === null || _g === void 0 ? void 0 : _g.length)) {
+                  borderColorCell = layoutMap.getBody(col, row).style(grid[_].records[layoutMap.getRecordIndexByRow(row)]);
+                }
+
+                if (borderColorCell) {
+                  option.borderColor = borderColorCell;
+                  helper.border(context, option);
+                }
+              } //追加処理
+
 
               if (col > 0 && isSelectCell(col - 1, row)) {
                 //右が選択されている

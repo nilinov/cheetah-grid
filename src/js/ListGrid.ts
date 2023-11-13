@@ -378,6 +378,29 @@ function _borderWithState<T>(
     }
     helper.border(context, option);
 
+    if (layoutMap.getBody(col, row)?.style) {
+      let borderColorCell = "";
+
+      if (typeof layoutMap.getBody(col, row)?.style == "object") {
+        borderColorCell =
+          (layoutMap.getBody(col, row).style as any)?.borderColor ?? "";
+      }
+
+      if (
+        typeof layoutMap.getBody(col, row)?.style == "function" &&
+        grid[_].records?.length
+      ) {
+        borderColorCell = (layoutMap!.getBody(col, row)!.style as any)(
+          grid[_].records![layoutMap.getRecordIndexByRow(row)]
+        );
+      }
+
+      if (borderColorCell) {
+        option.borderColor = borderColorCell;
+        helper.border(context, option);
+      }
+    }
+
     //追加処理
     if (col > 0 && isSelectCell(col - 1, row)) {
       //右が選択されている

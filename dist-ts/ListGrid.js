@@ -251,6 +251,7 @@ function _onDrawValue(grid, cellValue, context, { col, row }, style, draw) {
 }
 /** @private */
 function _borderWithState(grid, helper, context) {
+    var _b, _c, _d, _e, _f, _g;
     const { col, row } = context;
     const sel = grid.selection.select;
     const { layoutMap } = grid[_];
@@ -280,6 +281,21 @@ function _borderWithState(grid, helper, context) {
             option.borderColor = helper.theme.frozenRowsBorderColor;
         }
         helper.border(context, option);
+        if ((_b = layoutMap.getBody(col, row)) === null || _b === void 0 ? void 0 : _b.style) {
+            let borderColorCell = "";
+            if (typeof ((_c = layoutMap.getBody(col, row)) === null || _c === void 0 ? void 0 : _c.style) == "object") {
+                borderColorCell =
+                    (_e = (_d = layoutMap.getBody(col, row).style) === null || _d === void 0 ? void 0 : _d.borderColor) !== null && _e !== void 0 ? _e : "";
+            }
+            if (typeof ((_f = layoutMap.getBody(col, row)) === null || _f === void 0 ? void 0 : _f.style) == "function" &&
+                ((_g = grid[_].records) === null || _g === void 0 ? void 0 : _g.length)) {
+                borderColorCell = layoutMap.getBody(col, row).style(grid[_].records[layoutMap.getRecordIndexByRow(row)]);
+            }
+            if (borderColorCell) {
+                option.borderColor = borderColorCell;
+                helper.border(context, option);
+            }
+        }
         //追加処理
         if (col > 0 && isSelectCell(col - 1, row)) {
             //右が選択されている

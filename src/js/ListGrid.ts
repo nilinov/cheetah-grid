@@ -376,7 +376,8 @@ function _borderWithState<T>(
     if (isFrozenCell?.row) {
       option.borderColor = helper.theme.frozenRowsBorderColor;
     }
-    helper.border(context, option);
+
+    let flagBorder = false;
 
     if (layoutMap.getBody(col, row)?.style) {
       let borderColorCell = "";
@@ -400,7 +401,12 @@ function _borderWithState<T>(
       if (borderColorCell) {
         option.borderColor = borderColorCell;
         helper.border(context, option);
+        flagBorder = true;
       }
+    }
+
+    if (!flagBorder) {
+      helper.border(context, option);
     }
 
     //追加処理

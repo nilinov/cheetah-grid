@@ -280,7 +280,7 @@ function _borderWithState(grid, helper, context) {
         if (isFrozenCell === null || isFrozenCell === void 0 ? void 0 : isFrozenCell.row) {
             option.borderColor = helper.theme.frozenRowsBorderColor;
         }
-        helper.border(context, option);
+        let flagBorder = false;
         if ((_b = layoutMap.getBody(col, row)) === null || _b === void 0 ? void 0 : _b.style) {
             let borderColorCell = "";
             if (typeof ((_c = layoutMap.getBody(col, row)) === null || _c === void 0 ? void 0 : _c.style) == "object") {
@@ -294,7 +294,11 @@ function _borderWithState(grid, helper, context) {
             if (borderColorCell) {
                 option.borderColor = borderColorCell;
                 helper.border(context, option);
+                flagBorder = true;
             }
+        }
+        if (!flagBorder) {
+            helper.border(context, option);
         }
         //追加処理
         if (col > 0 && isSelectCell(col - 1, row)) {

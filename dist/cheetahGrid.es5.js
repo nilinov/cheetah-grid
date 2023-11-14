@@ -3395,7 +3395,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 option.borderColor = helper.theme.frozenRowsBorderColor;
               }
 
-              helper.border(context, option);
+              var flagBorder = false;
 
               if ((_b = layoutMap.getBody(col, row)) === null || _b === void 0 ? void 0 : _b.style) {
                 var borderColorCell = "";
@@ -3411,7 +3411,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 if (borderColorCell) {
                   option.borderColor = borderColorCell;
                   helper.border(context, option);
+                  flagBorder = true;
                 }
+              }
+
+              if (!flagBorder) {
+                helper.border(context, option);
               } //追加処理
 
 

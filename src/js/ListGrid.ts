@@ -367,7 +367,8 @@ function _borderWithState<T>(
   //罫線
   if (
     isSelectCell(col, row) &&
-    (helper.theme.highlightBorderColor ||
+    ((typeof helper.theme.highlightBorderColor == "string" &&
+      helper.theme.highlightBorderColor) ||
       (typeof helper.theme.highlightBorderColor == "function" &&
         (helper.theme.highlightBorderColor as any)(row, col)))
   ) {

@@ -269,7 +269,8 @@ function _borderWithState(grid, helper, context) {
     }
     //罫線
     if (isSelectCell(col, row) &&
-        (helper.theme.highlightBorderColor ||
+        ((typeof helper.theme.highlightBorderColor == "string" &&
+            helper.theme.highlightBorderColor) ||
             (typeof helper.theme.highlightBorderColor == "function" &&
                 helper.theme.highlightBorderColor(row, col)))) {
         option.borderColor = helper.theme.highlightBorderColor;

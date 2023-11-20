@@ -2814,7 +2814,7 @@ function _onDrawValue(grid, cellValue, context, {
 
 
 function _borderWithState(grid, helper, context) {
-  var _b, _c, _d, _e, _f, _g, _h;
+  var _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
 
   const {
     col,
@@ -2838,7 +2838,7 @@ function _borderWithState(grid, helper, context) {
   } //罫線
 
 
-  if (isSelectCell(col, row)) {
+  if (isSelectCell(col, row) && (helper.theme.highlightBorderColor || typeof helper.theme.highlightBorderColor == "function" && helper.theme.highlightBorderColor(row, col))) {
     option.borderColor = helper.theme.highlightBorderColor;
     option.lineWidth = 2;
     helper.border(context, option);
@@ -2862,6 +2862,24 @@ function _borderWithState(grid, helper, context) {
 
       if (typeof ((_f = layoutMap.getBody(col, row)) === null || _f === void 0 ? void 0 : _f.style) == "function" && ((_g = grid[_].records) === null || _g === void 0 ? void 0 : _g.length)) {
         borderColorCell = (_h = layoutMap.getBody(col, row).style(grid[_].records[layoutMap.getRecordIndexByRow(row)], col, row)) === null || _h === void 0 ? void 0 : _h.borderColor;
+      }
+
+      if (borderColorCell) {
+        option.borderColor = borderColorCell;
+        helper.border(context, option);
+        flagBorder = true;
+      }
+    }
+
+    if ((_j = layoutMap.getHeader(col, row)) === null || _j === void 0 ? void 0 : _j.style) {
+      let borderColorCell = "";
+
+      if (typeof ((_k = layoutMap.getHeader(col, row)) === null || _k === void 0 ? void 0 : _k.style) == "object") {
+        borderColorCell = (_m = (_l = layoutMap.getHeader(col, row).style) === null || _l === void 0 ? void 0 : _l.borderColor) !== null && _m !== void 0 ? _m : "";
+      }
+
+      if (typeof ((_o = layoutMap.getHeader(col, row)) === null || _o === void 0 ? void 0 : _o.style) == "function" && ((_p = grid[_].records) === null || _p === void 0 ? void 0 : _p.length)) {
+        borderColorCell = (_q = layoutMap.getHeader(col, row).style(grid[_].records[layoutMap.getRecordIndexByRow(row)], col, row)) === null || _q === void 0 ? void 0 : _q.borderColor;
       }
 
       if (borderColorCell) {

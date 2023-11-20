@@ -3362,7 +3362,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
           function _borderWithState(grid, helper, context) {
-            var _b, _c, _d, _e, _f, _g, _h;
+            var _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
 
             var col = context.col,
                 row = context.row;
@@ -3382,7 +3382,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             } //罫線
 
 
-            if (isSelectCell(col, row)) {
+            if (isSelectCell(col, row) && (helper.theme.highlightBorderColor || typeof helper.theme.highlightBorderColor == "function" && helper.theme.highlightBorderColor(row, col))) {
               option.borderColor = helper.theme.highlightBorderColor;
               option.lineWidth = 2;
               helper.border(context, option);
@@ -3410,6 +3410,24 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
                 if (borderColorCell) {
                   option.borderColor = borderColorCell;
+                  helper.border(context, option);
+                  flagBorder = true;
+                }
+              }
+
+              if ((_j = layoutMap.getHeader(col, row)) === null || _j === void 0 ? void 0 : _j.style) {
+                var _borderColorCell = "";
+
+                if (_typeof((_k = layoutMap.getHeader(col, row)) === null || _k === void 0 ? void 0 : _k.style) == "object") {
+                  _borderColorCell = (_m = (_l = layoutMap.getHeader(col, row).style) === null || _l === void 0 ? void 0 : _l.borderColor) !== null && _m !== void 0 ? _m : "";
+                }
+
+                if (typeof ((_o = layoutMap.getHeader(col, row)) === null || _o === void 0 ? void 0 : _o.style) == "function" && ((_p = grid[_].records) === null || _p === void 0 ? void 0 : _p.length)) {
+                  _borderColorCell = (_q = layoutMap.getHeader(col, row).style(grid[_].records[layoutMap.getRecordIndexByRow(row)], col, row)) === null || _q === void 0 ? void 0 : _q.borderColor;
+                }
+
+                if (_borderColorCell) {
+                  option.borderColor = _borderColorCell;
                   helper.border(context, option);
                   flagBorder = true;
                 }

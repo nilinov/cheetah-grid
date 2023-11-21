@@ -655,6 +655,7 @@ declare module 'cheetah-grid/ts-types/events' {
         mouseout_cell: [MousePointerCellEvent];
         mousemove_cell: [MouseCellEvent];
         mousedown_cell: [MouseCellEvent];
+        mousedown_grid: [MouseCellEvent];
         mouseup_cell: [MouseCellEvent];
         contextmenu_cell: [MouseCellEvent];
         touchstart_cell: [TouchCellEvent];
@@ -683,6 +684,7 @@ declare module 'cheetah-grid/ts-types/events' {
         mouseout_cell: void;
         mousemove_cell: void;
         mousedown_cell: boolean;
+        mousedown_grid: boolean;
         mouseup_cell: void;
         contextmenu_cell: void;
         touchstart_cell: void;
@@ -1822,6 +1824,7 @@ declare module 'cheetah-grid/core/DG_EVENT_TYPE' {
                 * Indicates when pointing device button is pressed in a cell.
                 */
             MOUSEDOWN_CELL: "mousedown_cell";
+            MOUSEDOWN_GRID: "mousedown_grid";
             /**
                 * Indicates when pointing device button is released in a cell.
                 */

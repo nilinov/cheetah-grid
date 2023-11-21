@@ -12119,6 +12119,7 @@ exports.DG_EVENT_TYPE = {
   DBLCLICK_CELL: "dblclick_cell",
   DBLTAP_CELL: "dbltap_cell",
   MOUSEDOWN_CELL: "mousedown_cell",
+  MOUSEDOWN_GRID: 'mousedown_grid',
   MOUSEUP_CELL: "mouseup_cell",
   SELECTED_CELL: "selected_cell",
   KEYDOWN: "keydown",
@@ -13521,11 +13522,16 @@ function _bindEvents() {
     const eventArgsSet = getCellEventArgsSet(e);
     const {
       abstractPos,
-      eventArgs
+      eventArgs,
+      cell
     } = eventArgsSet;
 
     if (!abstractPos) {
       return;
+    }
+
+    if (cell) {
+      grid.fireListeners(DG_EVENT_TYPE_1.DG_EVENT_TYPE.MOUSEDOWN_CELL, cell);
     }
 
     if (eventArgs) {

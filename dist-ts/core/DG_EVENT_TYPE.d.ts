@@ -15,6 +15,7 @@ export interface DrawGridEvents {
      * Indicates when pointing device button is pressed in a cell.
      */
     MOUSEDOWN_CELL: "mousedown_cell";
+    MOUSEDOWN_GRID: "mousedown_grid";
     /**
      * Indicates when pointing device button is released in a cell.
      */

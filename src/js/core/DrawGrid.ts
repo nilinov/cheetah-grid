@@ -1318,9 +1318,15 @@ function _bindEvents(this: DrawGrid): void {
   };
   handler.on(element, "mousedown", (e) => {
     const eventArgsSet = getCellEventArgsSet(e);
-    const { abstractPos, eventArgs } = eventArgsSet;
+    const { abstractPos, eventArgs, cell } = eventArgsSet;
     if (!abstractPos) {
       return;
+    }
+    if (cell){
+      grid.fireListeners(
+        DG_EVENT_TYPE.MOUSEDOWN_CELL,
+        cell as any
+      )
     }
     if (eventArgs) {
       const results = grid.fireListeners(

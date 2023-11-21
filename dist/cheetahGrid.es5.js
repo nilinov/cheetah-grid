@@ -14062,6 +14062,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             DBLCLICK_CELL: "dblclick_cell",
             DBLTAP_CELL: "dbltap_cell",
             MOUSEDOWN_CELL: "mousedown_cell",
+            MOUSEDOWN_GRID: 'mousedown_grid',
             MOUSEUP_CELL: "mouseup_cell",
             SELECTED_CELL: "selected_cell",
             KEYDOWN: "keydown",
@@ -15465,10 +15466,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             handler.on(element, "mousedown", function (e) {
               var eventArgsSet = getCellEventArgsSet(e);
               var abstractPos = eventArgsSet.abstractPos,
-                  eventArgs = eventArgsSet.eventArgs;
+                  eventArgs = eventArgsSet.eventArgs,
+                  cell = eventArgsSet.cell;
 
               if (!abstractPos) {
                 return;
+              }
+
+              if (cell) {
+                grid.fireListeners(DG_EVENT_TYPE_1.DG_EVENT_TYPE.MOUSEDOWN_CELL, cell);
               }
 
               if (eventArgs) {

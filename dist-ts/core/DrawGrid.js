@@ -1031,7 +1031,7 @@ function _bindEvents() {
             return;
         }
         if (cell) {
-            grid.fireListeners(DG_EVENT_TYPE_1.DG_EVENT_TYPE.MOUSEDOWN_CELL, cell);
+            grid.fireListeners(DG_EVENT_TYPE_1.DG_EVENT_TYPE.MOUSEDOWN_GRID, cell);
         }
         if (eventArgs) {
             const results = grid.fireListeners(DG_EVENT_TYPE_1.DG_EVENT_TYPE.MOUSEDOWN_CELL, eventArgs);

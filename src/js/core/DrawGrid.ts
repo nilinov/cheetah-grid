@@ -1324,7 +1324,7 @@ function _bindEvents(this: DrawGrid): void {
     }
     if (cell){
       grid.fireListeners(
-        DG_EVENT_TYPE.MOUSEDOWN_CELL,
+        DG_EVENT_TYPE.MOUSEDOWN_GRID,
         cell as any
       )
     }

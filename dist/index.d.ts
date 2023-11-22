@@ -3279,11 +3279,11 @@ declare module 'cheetah-grid/list-grid/layout-map/api' {
     }
     export type HeadersDefine<T> = (GroupHeaderDefine<T> | ColumnDefine<T>)[];
     export interface HeaderCellDefine<T> extends HeaderDefine<T> {
-        colSpan?: number;
+        colSpan?: number | ((col: number, row: number) => number);
         rowSpan?: number;
     }
     export interface CellDefine<T> extends ColumnDefine<T> {
-        colSpan?: number;
+        colSpan?: number | ((col: number, row: number) => number);
         rowSpan?: number;
     }
     export type HeaderBodyLayoutDefine<T> = {

@@ -22151,15 +22151,15 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             this.columnWidths = [];
             layout.forEach(function (rowLayout, row) {
               var col = 0;
-              rowLayout.forEach(function (cell) {
-                var _a, _b;
+              rowLayout.forEach(function (cell, indexCell) {
+                var _a, _b, _c;
                 var id = seqId++;
                 var obj = transform(cell, id);
                 _this106.objects.push(obj);
                 _this106.objectMap[id] = obj;
                 col = _this106._findStartCell(col, row);
                 var rowSpan = Number((_a = cell.rowSpan) !== null && _a !== void 0 ? _a : 1);
-                var colSpan = Number((_b = cell.colSpan) !== null && _b !== void 0 ? _b : 1);
+                var colSpan = typeof cell.colSpan === 'function' ? Number((_b = cell.colSpan(indexCell, row)) !== null && _b !== void 0 ? _b : 1) : Number((_c = cell.colSpan) !== null && _c !== void 0 ? _c : 1);
                 var endRow = row + rowSpan;
                 var endCol = col + colSpan;
                 for (var rowIndex = row; rowIndex < endRow; rowIndex++) {

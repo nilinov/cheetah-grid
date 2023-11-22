@@ -3376,6 +3376,9 @@ export abstract class DrawGrid extends EventTarget implements DrawGridAPI {
 
     let absoluteLeft = _getColsWidth(this, 0, col - 1);
     const width = _getColWidth(this, col);
+    
+    
+
     if (isFrozenCell && isFrozenCell.col) {
       absoluteLeft += this[_].scroll.left;
     }

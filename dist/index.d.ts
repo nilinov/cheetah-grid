@@ -205,10 +205,9 @@ declare module 'cheetah-grid/ListGrid' {
                 */
             colCount?: undefined;
             /**
-                * @deprecated Cannot be used with ListGrid.
                 * @override
                 */
-            frozenRowCount?: undefined;
+            frozenRowCount?: number;
     }
     export { HeadersDefine, ColumnDefine, HeaderDefine, GroupHeaderDefine };
     /**

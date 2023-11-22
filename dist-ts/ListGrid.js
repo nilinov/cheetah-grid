@@ -438,7 +438,9 @@ function _refreshHeader(grid) {
     }
     grid.colCount = layoutMap.colCount;
     _refreshRowCount(grid);
-    grid.frozenRowCount = layoutMap.headerRowCount;
+    if (grid.frozenRowCount == 0) {
+        grid.frozenRowCount = layoutMap.headerRowCount;
+    }
 }
 /** @private */
 function _refreshRowCount(grid) {
@@ -678,8 +680,8 @@ class ListGrid extends DrawGrid_1.DrawGrid {
      * @param options Constructor options
      */
     constructor(options = {}) {
-        var _b;
-        super((0, utils_1.omit)(options, ["colCount", "rowCount", "frozenRowCount"]));
+        var _b, _c;
+        super((0, utils_1.omit)(options, ["colCount", "rowCount"]));
         this[_a] = this[_];
         this.disabled = false;
         this.readOnly = false;
@@ -687,13 +689,14 @@ class ListGrid extends DrawGrid_1.DrawGrid {
         protectedSpace.header = options.header || [];
         protectedSpace.layout = options.layout || [];
         protectedSpace.headerRowHeight = options.headerRowHeight || [];
+        protectedSpace.frozenRowCount = (_b = options.frozenRowCount) !== null && _b !== void 0 ? _b : 0;
         if (options.dataSource) {
             _setDataSource(this, options.dataSource);
         }
         else {
             _setRecords(this, options.records);
         }
-        protectedSpace.allowRangePaste = (_b = options.allowRangePaste) !== null && _b !== void 0 ? _b : false;
+        protectedSpace.allowRangePaste = (_c = options.allowRangePaste) !== null && _c !== void 0 ? _c : false;
         _refreshHeader(this);
         protectedSpace.sortState = {
             col: -1,

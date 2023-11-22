@@ -70,10 +70,9 @@ export interface ListGridConstructorOptions<T> extends DrawGridConstructorOption
      */
     colCount?: undefined;
     /**
-     * @deprecated Cannot be used with ListGrid.
      * @override
      */
-    frozenRowCount?: undefined;
+    frozenRowCount?: number;
 }
 export { HeadersDefine, ColumnDefine, HeaderDefine, GroupHeaderDefine };
 /**

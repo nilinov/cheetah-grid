@@ -577,7 +577,9 @@ function _refreshHeader<T>(grid: ListGrid<T>): void {
   }
   grid.colCount = layoutMap.colCount;
   _refreshRowCount(grid);
-  grid.frozenRowCount = layoutMap.headerRowCount;
+  if (grid.frozenRowCount == 0) {
+    grid.frozenRowCount = layoutMap.headerRowCount;
+  }
 }
 
 /** @private */
@@ -942,10 +944,9 @@ export interface ListGridConstructorOptions<T>
    */
   colCount?: undefined;
   /**
-   * @deprecated Cannot be used with ListGrid.
    * @override
    */
-  frozenRowCount?: undefined;
+  frozenRowCount?: number;
 }
 export { HeadersDefine, ColumnDefine, HeaderDefine, GroupHeaderDefine };
 /**
@@ -967,11 +968,12 @@ export class ListGrid<T> extends DrawGrid implements ListGridAPI<T> {
    * @param options Constructor options
    */
   constructor(options: ListGridConstructorOptions<T> = {}) {
-    super(omit(options, ["colCount", "rowCount", "frozenRowCount"]));
+    super(omit(options, ["colCount", "rowCount"]));
     const protectedSpace = this[_];
     protectedSpace.header = options.header || [];
     protectedSpace.layout = options.layout || [];
     protectedSpace.headerRowHeight = options.headerRowHeight || [];
+    protectedSpace.frozenRowCount = options.frozenRowCount ?? 0;
     if (options.dataSource) {
       _setDataSource(this, options.dataSource);
     } else {

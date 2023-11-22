@@ -35,7 +35,7 @@ class Column extends BaseColumn_1.BaseColumn {
         return new Column(this);
     }
     drawInternal(value, context, style, helper, _grid, { drawCellBase, getIcon }) {
-        const { textAlign, textBaseline, color, font, bgColor, padding, textOverflow, appendRightPx, } = style;
+        const { textAlign, textBaseline, color, font, bgColor, padding, textOverflow, } = style;
         if (bgColor) {
             drawCellBase({
                 bgColor,
@@ -52,7 +52,6 @@ class Column extends BaseColumn_1.BaseColumn {
                 padding,
                 textOverflow,
                 icons,
-                appendRightPx,
             });
         });
     }

@@ -258,7 +258,6 @@ export interface GridCanvasHelperAPI {
       font?: FontPropertyDefine;
       textOverflow?: TextOverflow;
       icons?: SimpleColumnIconOption[];
-      appendRightPx?: number;
     }
   ): void;
   button(

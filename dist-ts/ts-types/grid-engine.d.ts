@@ -166,7 +166,6 @@ export interface GridCanvasHelperAPI {
         font?: FontPropertyDefine;
         textOverflow?: TextOverflow;
         icons?: SimpleColumnIconOption[];
-        appendRightPx?: number;
     }): void;
     button(caption: string, context: CellContext, option: {
         bgColor?: ColorPropertyDefine;

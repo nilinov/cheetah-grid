@@ -31,7 +31,6 @@ export class Column<T> extends BaseColumn<T> {
       bgColor,
       padding,
       textOverflow,
-      appendRightPx,
     } = style;
     if (bgColor) {
       drawCellBase({
@@ -49,7 +48,6 @@ export class Column<T> extends BaseColumn<T> {
         padding,
         textOverflow,
         icons,
-        appendRightPx,
       });
     });
   }

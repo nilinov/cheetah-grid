@@ -1850,10 +1850,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
                 _ref5$textOverflow = _ref5.textOverflow,
                 textOverflow = _ref5$textOverflow === void 0 ? "clip" : _ref5$textOverflow,
                 icons = _ref5.icons,
-                trailingIcon = _ref5.trailingIcon,
-                appendRightPx = _ref5.appendRightPx;
+                trailingIcon = _ref5.trailingIcon;
               var rect = context.getRect();
-              rect.width += appendRightPx !== null && appendRightPx !== void 0 ? appendRightPx : 0;
               var col = context.col,
                 row = context.row;
               if (!color) {
@@ -1872,7 +1870,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
                   var top = rect.top + paddingNums[0];
                   var width = rect.width - paddingNums[1] - paddingNums[3];
                   var height = rect.height - paddingNums[0] - paddingNums[2];
-                  rect = new Rect_1.Rect(left, top, width + (appendRightPx !== null && appendRightPx !== void 0 ? appendRightPx : 0), height);
+                  rect = new Rect_1.Rect(left, top, width, height);
                 }
                 _inlineRect(_this._grid, ctx, _text, rect, col, row, {
                   offset: offset,
@@ -8763,7 +8761,6 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             _this51._font = style.font;
             _this51._padding = style.padding;
             _this51._textOverflow = style.textOverflow || "clip";
-            _this51._appendRightPx = style.appendRightPx;
             return _this51;
           }
           _createClass(Style, [{
@@ -8800,15 +8797,6 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             },
             set: function set(textOverflow) {
               this._textOverflow = textOverflow;
-              this.doChangeStyle();
-            }
-          }, {
-            key: "appendRightPx",
-            get: function get() {
-              return this._appendRightPx;
-            },
-            set: function set(appendRightPx) {
-              this._appendRightPx = appendRightPx;
               this.doChangeStyle();
             }
           }, {
@@ -10116,8 +10104,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
                 font = style.font,
                 bgColor = style.bgColor,
                 padding = style.padding,
-                textOverflow = style.textOverflow,
-                appendRightPx = style.appendRightPx;
+                textOverflow = style.textOverflow;
               if (bgColor) {
                 drawCellBase({
                   bgColor: bgColor
@@ -10133,8 +10120,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
                   font: font,
                   padding: padding,
                   textOverflow: textOverflow,
-                  icons: icons,
-                  appendRightPx: appendRightPx
+                  icons: icons
                 });
               });
             }

@@ -473,7 +473,7 @@ declare module 'cheetah-grid/GridCanvasHelper' {
         get theme(): RequiredThemeDefine;
         drawWithClip(context: CellContext, draw: (ctx: CanvasRenderingContext2D) => void): void;
         drawBorderWithClip(context: CellContext, draw: (ctx: CanvasRenderingContext2D) => void): void;
-        text(text: string | (Inline | string)[], context: CellContext, { padding, offset, color, textAlign, textBaseline, font, textOverflow, icons, trailingIcon, appendRightPx, }?: {
+        text(text: string | (Inline | string)[], context: CellContext, { padding, offset, color, textAlign, textBaseline, font, textOverflow, icons, trailingIcon, }?: {
             padding?: number | string | (number | string)[];
             offset?: number;
             color?: ColorPropertyDefine;
@@ -483,7 +483,6 @@ declare module 'cheetah-grid/GridCanvasHelper' {
             textOverflow?: TextOverflow;
             icons?: SimpleColumnIconOption[];
             trailingIcon?: SimpleColumnIconOption;
-            appendRightPx?: number;
         }): void;
         multilineText(multilines: string[], context: CellContext, { padding, offset, color, textAlign, textBaseline, font, lineHeight, autoWrapText, lineClamp, textOverflow, icons, trailingIcon, }?: {
             padding?: number | string | (number | string)[];
@@ -1054,7 +1053,6 @@ declare module 'cheetah-grid/ts-types/grid-engine' {
             font?: FontPropertyDefine;
             textOverflow?: TextOverflow;
             icons?: SimpleColumnIconOption[];
-            appendRightPx?: number;
         }): void;
         button(caption: string, context: CellContext, option: {
             bgColor?: ColorPropertyDefine;
@@ -2376,7 +2374,6 @@ declare module 'cheetah-grid/ts-types/column/style' {
         font?: string;
         padding?: number | string | (number | string)[];
         textOverflow?: TextOverflow;
-        appendRightPx?: number;
     }
     export interface StdMultilineTextBaseStyleOption extends StdTextBaseStyleOption {
         lineHeight?: string | number;
@@ -2853,8 +2850,6 @@ declare module 'cheetah-grid/columns/style/Style' {
         set padding(padding: number | string | (number | string)[] | undefined);
         get textOverflow(): TextOverflow;
         set textOverflow(textOverflow: TextOverflow);
-        get appendRightPx(): number | undefined;
-        set appendRightPx(appendRightPx: number | undefined);
         clone(): Style;
     }
 }

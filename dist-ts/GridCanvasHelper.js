@@ -779,8 +779,9 @@ class GridCanvasHelper {
             ctx.restore();
         }
     }
-    text(text, context, { padding, offset = TEXT_OFFSET, color, textAlign = "left", textBaseline = "middle", font, textOverflow = "clip", icons, trailingIcon, } = {}) {
+    text(text, context, { padding, offset = TEXT_OFFSET, color, textAlign = "left", textBaseline = "middle", font, textOverflow = "clip", icons, trailingIcon, appendRightPx, } = {}) {
         let rect = context.getRect();
+        rect.width += appendRightPx !== null && appendRightPx !== void 0 ? appendRightPx : 0;
         const { col, row } = context;
         if (!color) {
             ({ color } = this.theme);
@@ -798,7 +799,7 @@ class GridCanvasHelper {
                 const top = rect.top + paddingNums[0];
                 const width = rect.width - paddingNums[1] - paddingNums[3];
                 const height = rect.height - paddingNums[0] - paddingNums[2];
-                rect = new Rect_1.Rect(left, top, width, height);
+                rect = new Rect_1.Rect(left, top, width + (appendRightPx !== null && appendRightPx !== void 0 ? appendRightPx : 0), height);
             }
             _inlineRect(this._grid, ctx, text, rect, col, row, {
                 offset,

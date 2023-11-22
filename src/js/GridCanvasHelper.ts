@@ -1230,6 +1230,7 @@ export class GridCanvasHelper<T> implements GridCanvasHelperAPI {
       textOverflow = "clip",
       icons,
       trailingIcon,
+      appendRightPx,
     }: {
       padding?: number | string | (number | string)[];
       offset?: number;
@@ -1240,9 +1241,11 @@ export class GridCanvasHelper<T> implements GridCanvasHelperAPI {
       textOverflow?: TextOverflow;
       icons?: SimpleColumnIconOption[];
       trailingIcon?: SimpleColumnIconOption;
+      appendRightPx?: number,
     } = {}
   ): void {
     let rect = context.getRect();
+    rect.width += appendRightPx ?? 0;
 
     const { col, row } = context;
 
@@ -1263,7 +1266,7 @@ export class GridCanvasHelper<T> implements GridCanvasHelperAPI {
         const top = rect.top + paddingNums[0];
         const width = rect.width - paddingNums[1] - paddingNums[3];
         const height = rect.height - paddingNums[0] - paddingNums[2];
-        rect = new Rect(left, top, width, height);
+        rect = new Rect(left, top, width + (appendRightPx ?? 0), height);
       }
       _inlineRect(this._grid, ctx, text, rect, col, row, {
         offset,

@@ -33,6 +33,7 @@ export interface StdTextBaseStyleOption extends StdBaseStyleOption {
   font?: string;
   padding?: number | string | (number | string)[];
   textOverflow?: TextOverflow;
+  appendRightPx?: number;
 }
 export interface StdMultilineTextBaseStyleOption
   extends StdTextBaseStyleOption {

@@ -13,6 +13,7 @@ class Style extends StdBaseStyle_1.StdBaseStyle {
         this._font = style.font;
         this._padding = style.padding;
         this._textOverflow = style.textOverflow || "clip";
+        this._appendRightPx = style.appendRightPx;
     }
     get color() {
         return this._color;
@@ -40,6 +41,13 @@ class Style extends StdBaseStyle_1.StdBaseStyle {
     }
     set textOverflow(textOverflow) {
         this._textOverflow = textOverflow;
+        this.doChangeStyle();
+    }
+    get appendRightPx() {
+        return this._appendRightPx;
+    }
+    set appendRightPx(appendRightPx) {
+        this._appendRightPx = appendRightPx;
         this.doChangeStyle();
     }
     clone() {

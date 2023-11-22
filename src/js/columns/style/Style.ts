@@ -6,6 +6,7 @@ export class Style extends StdBaseStyle {
   private _font?: string;
   private _padding: number | string | (number | string)[] | undefined;
   private _textOverflow: TextOverflow;
+  private _appendRightPx?: number;
   static get DEFAULT(): Style {
     return defaultStyle ? defaultStyle : (defaultStyle = new Style());
   }
@@ -15,6 +16,7 @@ export class Style extends StdBaseStyle {
     this._font = style.font;
     this._padding = style.padding;
     this._textOverflow = style.textOverflow || "clip";
+    this._appendRightPx = style.appendRightPx;
   }
   get color(): ColorDef | undefined {
     return this._color;
@@ -42,6 +44,13 @@ export class Style extends StdBaseStyle {
   }
   set textOverflow(textOverflow: TextOverflow) {
     this._textOverflow = textOverflow;
+    this.doChangeStyle();
+  }
+  get appendRightPx(): number | undefined  {
+    return this._appendRightPx;
+  }
+  set appendRightPx(appendRightPx: number | undefined) {
+    this._appendRightPx = appendRightPx;
     this.doChangeStyle();
   }
   clone(): Style {

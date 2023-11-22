@@ -18,7 +18,7 @@ export declare class GridCanvasHelper<T> implements GridCanvasHelperAPI {
     get theme(): RequiredThemeDefine;
     drawWithClip(context: CellContext, draw: (ctx: CanvasRenderingContext2D) => void): void;
     drawBorderWithClip(context: CellContext, draw: (ctx: CanvasRenderingContext2D) => void): void;
-    text(text: string | (Inline | string)[], context: CellContext, { padding, offset, color, textAlign, textBaseline, font, textOverflow, icons, trailingIcon, }?: {
+    text(text: string | (Inline | string)[], context: CellContext, { padding, offset, color, textAlign, textBaseline, font, textOverflow, icons, trailingIcon, appendRightPx, }?: {
         padding?: number | string | (number | string)[];
         offset?: number;
         color?: ColorPropertyDefine;
@@ -28,6 +28,7 @@ export declare class GridCanvasHelper<T> implements GridCanvasHelperAPI {
         textOverflow?: TextOverflow;
         icons?: SimpleColumnIconOption[];
         trailingIcon?: SimpleColumnIconOption;
+        appendRightPx?: number;
     }): void;
     multilineText(multilines: string[], context: CellContext, { padding, offset, color, textAlign, textBaseline, font, lineHeight, autoWrapText, lineClamp, textOverflow, icons, trailingIcon, }?: {
         padding?: number | string | (number | string)[];

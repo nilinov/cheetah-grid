@@ -15,6 +15,7 @@ export interface DrawGridEvents {
    * Indicates when pointing device button is pressed in a cell.
    */
   MOUSEDOWN_CELL: "mousedown_cell";
+  MOUSEDOWN_GRID: "mousedown_grid";
   /**
    * Indicates when pointing device button is released in a cell.
    */
@@ -63,6 +64,7 @@ export const DG_EVENT_TYPE: DrawGridEvents = {
   DBLCLICK_CELL: "dblclick_cell",
   DBLTAP_CELL: "dbltap_cell",
   MOUSEDOWN_CELL: "mousedown_cell",
+  MOUSEDOWN_GRID: 'mousedown_grid',
   MOUSEUP_CELL: "mouseup_cell",
   SELECTED_CELL: "selected_cell",
   KEYDOWN: "keydown",

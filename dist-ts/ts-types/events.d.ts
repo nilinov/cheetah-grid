@@ -61,6 +61,7 @@ export interface DrawGridEventHandlersEventMap {
     mouseout_cell: [MousePointerCellEvent];
     mousemove_cell: [MouseCellEvent];
     mousedown_cell: [MouseCellEvent];
+    mousedown_grid: [MouseCellEvent];
     mouseup_cell: [MouseCellEvent];
     contextmenu_cell: [MouseCellEvent];
     touchstart_cell: [TouchCellEvent];
@@ -89,6 +90,7 @@ export interface DrawGridEventHandlersReturnMap {
     mouseout_cell: void;
     mousemove_cell: void;
     mousedown_cell: boolean;
+    mousedown_grid: boolean;
     mouseup_cell: void;
     contextmenu_cell: void;
     touchstart_cell: void;

@@ -54,15 +54,17 @@ export function of(
   columnStyle: ColumnStyleOption | null | undefined,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   record: any,
-  StyleClassDef: typeof BaseStyle = Style
+  StyleClassDef: typeof BaseStyle = Style,
+  col: number,
+  row: number,
 ): BaseStyle {
   if (columnStyle) {
     if (columnStyle instanceof BaseStyle) {
       return columnStyle;
     } else if (typeof columnStyle === "function") {
-      return of(columnStyle(record), record, StyleClassDef);
+      return of(columnStyle(record, col, row), record, StyleClassDef, col, row);
     } else if (record && (columnStyle as symbol) in record) {
-      return of(record[columnStyle as string], record, StyleClassDef);
+      return of(record[columnStyle as string], record, StyleClassDef, col, row);
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return new StyleClassDef(columnStyle as any);

@@ -11,6 +11,7 @@ exports.DG_EVENT_TYPE = {
     DBLCLICK_CELL: "dblclick_cell",
     DBLTAP_CELL: "dbltap_cell",
     MOUSEDOWN_CELL: "mousedown_cell",
+    MOUSEDOWN_GRID: 'mousedown_grid',
     MOUSEUP_CELL: "mouseup_cell",
     SELECTED_CELL: "selected_cell",
     KEYDOWN: "keydown",

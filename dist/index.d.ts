@@ -655,6 +655,7 @@ declare module 'cheetah-grid/ts-types/events' {
         mouseout_cell: [MousePointerCellEvent];
         mousemove_cell: [MouseCellEvent];
         mousedown_cell: [MouseCellEvent];
+        mousedown_grid: [MouseCellEvent];
         mouseup_cell: [MouseCellEvent];
         contextmenu_cell: [MouseCellEvent];
         touchstart_cell: [TouchCellEvent];
@@ -683,6 +684,7 @@ declare module 'cheetah-grid/ts-types/events' {
         mouseout_cell: void;
         mousemove_cell: void;
         mousedown_cell: boolean;
+        mousedown_grid: boolean;
         mouseup_cell: void;
         contextmenu_cell: void;
         touchstart_cell: void;
@@ -1201,7 +1203,7 @@ declare module 'cheetah-grid/columns/style' {
     };
     export { EVENT_TYPE, BaseStyle, Style, NumberStyle, CheckStyle, RadioStyle, ButtonStyle, ImageStyle, IconStyle, PercentCompleteBarStyle, MultilineTextStyle, MenuStyle, };
     export type { BaseStyleOption, ButtonStyleOption, CheckStyleOption, IconStyleOption, ImageStyleOption, MenuStyleOption, MultilineTextStyleOption, NumberStyleOption, PercentCompleteBarStyleOption, StyleOption, };
-    export function of(columnStyle: ColumnStyleOption | null | undefined, record: any, StyleClassDef?: typeof BaseStyle): BaseStyle;
+    export function of(columnStyle: ColumnStyleOption | null | undefined, record: any, StyleClassDef: typeof BaseStyle | undefined, col: number, row: number): BaseStyle;
 }
 
 declare module 'cheetah-grid/columns/type' {
@@ -1822,6 +1824,7 @@ declare module 'cheetah-grid/core/DG_EVENT_TYPE' {
                 * Indicates when pointing device button is pressed in a cell.
                 */
             MOUSEDOWN_CELL: "mousedown_cell";
+            MOUSEDOWN_GRID: "mousedown_grid";
             /**
                 * Indicates when pointing device button is released in a cell.
                 */
@@ -2433,7 +2436,7 @@ declare module 'cheetah-grid/ts-types/column/style' {
         sortArrowColor?: ColorDef;
         multiline?: boolean;
     }
-    export type ColumnStyleOption = string | ColumnStyle | BaseStyleOption | StdBaseStyleOption | StyleOption | ButtonStyleOption | CheckStyleOption | NumberStyleOption | MultilineTextStyleOption | MenuStyleOption | ImageStyleOption | IconStyleOption | BranchGraphStyleOption | PercentCompleteBarStyleOption | ((record: any) => string | ColumnStyle | BaseStyleOption | StdBaseStyleOption | StyleOption | ButtonStyleOption | CheckStyleOption | NumberStyleOption | MultilineTextStyleOption | MenuStyleOption | ImageStyleOption | IconStyleOption | BranchGraphStyleOption | PercentCompleteBarStyleOption);
+    export type ColumnStyleOption = string | ColumnStyle | BaseStyleOption | StdBaseStyleOption | StyleOption | ButtonStyleOption | CheckStyleOption | NumberStyleOption | MultilineTextStyleOption | MenuStyleOption | ImageStyleOption | IconStyleOption | BranchGraphStyleOption | PercentCompleteBarStyleOption | ((record: any, col?: number, row?: number) => string | ColumnStyle | BaseStyleOption | StdBaseStyleOption | StyleOption | ButtonStyleOption | CheckStyleOption | NumberStyleOption | MultilineTextStyleOption | MenuStyleOption | ImageStyleOption | IconStyleOption | BranchGraphStyleOption | PercentCompleteBarStyleOption);
     export type HeaderStyleOption = ColumnStyle | BaseStyleOption | HeaderStdStyleOption | CheckHeaderStyleOption | MultilineTextHeaderStyleOption | SortHeaderStyleOption | (() => ColumnStyle | BaseStyleOption | HeaderStdStyleOption | CheckHeaderStyleOption | MultilineTextHeaderStyleOption | SortHeaderStyleOption);
 }
 

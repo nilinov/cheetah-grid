@@ -3362,6 +3362,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
           function _borderWithState(grid, helper, context) {
+            var _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
+
             var col = context.col,
                 row = context.row;
             var sel = grid.selection.select;
@@ -3380,7 +3382,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             } //罫線
 
 
-            if (isSelectCell(col, row)) {
+            if (isSelectCell(col, row) && (typeof helper.theme.highlightBorderColor == "string" && helper.theme.highlightBorderColor || typeof helper.theme.highlightBorderColor == "function" && helper.theme.highlightBorderColor(row, col))) {
               option.borderColor = helper.theme.highlightBorderColor;
               option.lineWidth = 2;
               helper.border(context, option);
@@ -3393,7 +3395,48 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 option.borderColor = helper.theme.frozenRowsBorderColor;
               }
 
-              helper.border(context, option); //追加処理
+              var flagBorder = false;
+
+              if ((_b = layoutMap.getBody(col, row)) === null || _b === void 0 ? void 0 : _b.style) {
+                var borderColorCell = "";
+
+                if (_typeof((_c = layoutMap.getBody(col, row)) === null || _c === void 0 ? void 0 : _c.style) == "object") {
+                  borderColorCell = (_e = (_d = layoutMap.getBody(col, row).style) === null || _d === void 0 ? void 0 : _d.borderColor) !== null && _e !== void 0 ? _e : "";
+                }
+
+                if (typeof ((_f = layoutMap.getBody(col, row)) === null || _f === void 0 ? void 0 : _f.style) == "function" && ((_g = grid[_].records) === null || _g === void 0 ? void 0 : _g.length)) {
+                  borderColorCell = (_h = layoutMap.getBody(col, row).style(grid[_].records[layoutMap.getRecordIndexByRow(row)], col, row)) === null || _h === void 0 ? void 0 : _h.borderColor;
+                }
+
+                if (borderColorCell) {
+                  option.borderColor = borderColorCell;
+                  helper.border(context, option);
+                  flagBorder = true;
+                }
+              }
+
+              if ((_j = layoutMap.getHeader(col, row)) === null || _j === void 0 ? void 0 : _j.style) {
+                var _borderColorCell = "";
+
+                if (_typeof((_k = layoutMap.getHeader(col, row)) === null || _k === void 0 ? void 0 : _k.style) == "object") {
+                  _borderColorCell = (_m = (_l = layoutMap.getHeader(col, row).style) === null || _l === void 0 ? void 0 : _l.borderColor) !== null && _m !== void 0 ? _m : "";
+                }
+
+                if (typeof ((_o = layoutMap.getHeader(col, row)) === null || _o === void 0 ? void 0 : _o.style) == "function" && ((_p = grid[_].records) === null || _p === void 0 ? void 0 : _p.length)) {
+                  _borderColorCell = (_q = layoutMap.getHeader(col, row).style(grid[_].records[layoutMap.getRecordIndexByRow(row)], col, row)) === null || _q === void 0 ? void 0 : _q.borderColor;
+                }
+
+                if (_borderColorCell) {
+                  option.borderColor = _borderColorCell;
+                  helper.border(context, option);
+                  flagBorder = true;
+                }
+              }
+
+              if (!flagBorder) {
+                helper.border(context, option);
+              } //追加処理
+
 
               if (col > 0 && isSelectCell(col - 1, row)) {
                 //右が選択されている
@@ -9940,14 +9983,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           function of(columnStyle, // eslint-disable-next-line @typescript-eslint/no-explicit-any
           record) {
             var StyleClassDef = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Style_1.Style;
+            var col = arguments.length > 3 ? arguments[3] : undefined;
+            var row = arguments.length > 4 ? arguments[4] : undefined;
 
             if (columnStyle) {
               if (columnStyle instanceof BaseStyle_1.BaseStyle) {
                 return columnStyle;
               } else if (typeof columnStyle === "function") {
-                return of(columnStyle(record), record, StyleClassDef);
+                return of(columnStyle(record, col, row), record, StyleClassDef, col, row);
               } else if (record && columnStyle in record) {
-                return of(record[columnStyle], record, StyleClassDef);
+                return of(record[columnStyle], record, StyleClassDef, col, row);
               } // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 
@@ -11600,7 +11645,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                         return;
                       }
 
-                      var actStyle = styleContents.of(style, record, _this52.StyleClass);
+                      var actStyle = styleContents.of(style, record, _this52.StyleClass, context.col, context.row);
 
                       _this52.drawInternal(_this52.convertInternal(val), currentContext, actStyle, helper, grid, info);
 
@@ -11625,7 +11670,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                     }
                   });
                 } else {
-                  var actStyle = styleContents.of(style, record, this.StyleClass);
+                  var actStyle = styleContents.of(style, record, this.StyleClass, context.col, context.row);
                   this.drawInternal(this.convertInternal(cellValue), context, actStyle, helper, grid, info);
                   this.drawMessageInternal(info.getMessage(), context, actStyle, helper, grid, info);
                   this.drawIndicatorsInternal(context, actStyle, helper, grid, info); //フェードインの場合透過するため背景を透過で上書き
@@ -14017,6 +14062,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             DBLCLICK_CELL: "dblclick_cell",
             DBLTAP_CELL: "dbltap_cell",
             MOUSEDOWN_CELL: "mousedown_cell",
+            MOUSEDOWN_GRID: 'mousedown_grid',
             MOUSEUP_CELL: "mouseup_cell",
             SELECTED_CELL: "selected_cell",
             KEYDOWN: "keydown",
@@ -15420,10 +15466,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             handler.on(element, "mousedown", function (e) {
               var eventArgsSet = getCellEventArgsSet(e);
               var abstractPos = eventArgsSet.abstractPos,
-                  eventArgs = eventArgsSet.eventArgs;
+                  eventArgs = eventArgsSet.eventArgs,
+                  cell = eventArgsSet.cell;
 
               if (!abstractPos) {
                 return;
+              }
+
+              if (cell) {
+                grid.fireListeners(DG_EVENT_TYPE_1.DG_EVENT_TYPE.MOUSEDOWN_GRID, cell);
               }
 
               if (eventArgs) {

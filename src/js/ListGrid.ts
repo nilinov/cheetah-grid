@@ -365,7 +365,13 @@ function _borderWithState<T>(
   }
 
   //罫線
-  if (isSelectCell(col, row)) {
+  if (
+    isSelectCell(col, row) &&
+    ((typeof helper.theme.highlightBorderColor == "string" &&
+      helper.theme.highlightBorderColor) ||
+      (typeof helper.theme.highlightBorderColor == "function" &&
+        (helper.theme.highlightBorderColor as any)(row, col)))
+  ) {
     option.borderColor = helper.theme.highlightBorderColor;
     option.lineWidth = 2;
     helper.border(context, option);
@@ -376,7 +382,64 @@ function _borderWithState<T>(
     if (isFrozenCell?.row) {
       option.borderColor = helper.theme.frozenRowsBorderColor;
     }
-    helper.border(context, option);
+
+    let flagBorder = false;
+
+    if (layoutMap.getBody(col, row)?.style) {
+      let borderColorCell = "";
+
+      if (typeof layoutMap.getBody(col, row)?.style == "object") {
+        borderColorCell =
+          (layoutMap.getBody(col, row).style as any)?.borderColor ?? "";
+      }
+
+      if (
+        typeof layoutMap.getBody(col, row)?.style == "function" &&
+        grid[_].records?.length
+      ) {
+        borderColorCell = (layoutMap!.getBody(col, row)!.style as any)(
+          grid[_].records![layoutMap.getRecordIndexByRow(row)],
+          col,
+          row
+        )?.borderColor;
+      }
+
+      if (borderColorCell) {
+        option.borderColor = borderColorCell;
+        helper.border(context, option);
+        flagBorder = true;
+      }
+    }
+
+    if (layoutMap.getHeader(col, row)?.style) {
+      let borderColorCell = "";
+
+      if (typeof layoutMap.getHeader(col, row)?.style == "object") {
+        borderColorCell =
+          (layoutMap.getHeader(col, row).style as any)?.borderColor ?? "";
+      }
+
+      if (
+        typeof layoutMap.getHeader(col, row)?.style == "function" &&
+        grid[_].records?.length
+      ) {
+        borderColorCell = (layoutMap!.getHeader(col, row)!.style as any)(
+          grid[_].records![layoutMap.getRecordIndexByRow(row)],
+          col,
+          row
+        )?.borderColor;
+      }
+
+      if (borderColorCell) {
+        option.borderColor = borderColorCell;
+        helper.border(context, option);
+        flagBorder = true;
+      }
+    }
+
+    if (!flagBorder) {
+      helper.border(context, option);
+    }
 
     //追加処理
     if (col > 0 && isSelectCell(col - 1, row)) {

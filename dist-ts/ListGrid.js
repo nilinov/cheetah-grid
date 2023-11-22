@@ -251,6 +251,7 @@ function _onDrawValue(grid, cellValue, context, { col, row }, style, draw) {
 }
 /** @private */
 function _borderWithState(grid, helper, context) {
+    var _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
     const { col, row } = context;
     const sel = grid.selection.select;
     const { layoutMap } = grid[_];
@@ -267,7 +268,11 @@ function _borderWithState(grid, helper, context) {
             layoutMap.getRecordIndexByRow(row) === selRecordIndex);
     }
     //罫線
-    if (isSelectCell(col, row)) {
+    if (isSelectCell(col, row) &&
+        ((typeof helper.theme.highlightBorderColor == "string" &&
+            helper.theme.highlightBorderColor) ||
+            (typeof helper.theme.highlightBorderColor == "function" &&
+                helper.theme.highlightBorderColor(row, col)))) {
         option.borderColor = helper.theme.highlightBorderColor;
         option.lineWidth = 2;
         helper.border(context, option);
@@ -279,7 +284,42 @@ function _borderWithState(grid, helper, context) {
         if (isFrozenCell === null || isFrozenCell === void 0 ? void 0 : isFrozenCell.row) {
             option.borderColor = helper.theme.frozenRowsBorderColor;
         }
-        helper.border(context, option);
+        let flagBorder = false;
+        if ((_b = layoutMap.getBody(col, row)) === null || _b === void 0 ? void 0 : _b.style) {
+            let borderColorCell = "";
+            if (typeof ((_c = layoutMap.getBody(col, row)) === null || _c === void 0 ? void 0 : _c.style) == "object") {
+                borderColorCell =
+                    (_e = (_d = layoutMap.getBody(col, row).style) === null || _d === void 0 ? void 0 : _d.borderColor) !== null && _e !== void 0 ? _e : "";
+            }
+            if (typeof ((_f = layoutMap.getBody(col, row)) === null || _f === void 0 ? void 0 : _f.style) == "function" &&
+                ((_g = grid[_].records) === null || _g === void 0 ? void 0 : _g.length)) {
+                borderColorCell = (_h = layoutMap.getBody(col, row).style(grid[_].records[layoutMap.getRecordIndexByRow(row)], col, row)) === null || _h === void 0 ? void 0 : _h.borderColor;
+            }
+            if (borderColorCell) {
+                option.borderColor = borderColorCell;
+                helper.border(context, option);
+                flagBorder = true;
+            }
+        }
+        if ((_j = layoutMap.getHeader(col, row)) === null || _j === void 0 ? void 0 : _j.style) {
+            let borderColorCell = "";
+            if (typeof ((_k = layoutMap.getHeader(col, row)) === null || _k === void 0 ? void 0 : _k.style) == "object") {
+                borderColorCell =
+                    (_m = (_l = layoutMap.getHeader(col, row).style) === null || _l === void 0 ? void 0 : _l.borderColor) !== null && _m !== void 0 ? _m : "";
+            }
+            if (typeof ((_o = layoutMap.getHeader(col, row)) === null || _o === void 0 ? void 0 : _o.style) == "function" &&
+                ((_p = grid[_].records) === null || _p === void 0 ? void 0 : _p.length)) {
+                borderColorCell = (_q = layoutMap.getHeader(col, row).style(grid[_].records[layoutMap.getRecordIndexByRow(row)], col, row)) === null || _q === void 0 ? void 0 : _q.borderColor;
+            }
+            if (borderColorCell) {
+                option.borderColor = borderColorCell;
+                helper.border(context, option);
+                flagBorder = true;
+            }
+        }
+        if (!flagBorder) {
+            helper.border(context, option);
+        }
         //追加処理
         if (col > 0 && isSelectCell(col - 1, row)) {
             //右が選択されている

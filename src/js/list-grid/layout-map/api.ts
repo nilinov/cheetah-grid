@@ -92,12 +92,12 @@ export type HeadersDefine<T> = (GroupHeaderDefine<T> | ColumnDefine<T>)[];
 // Advanced layout
 
 export interface HeaderCellDefine<T> extends HeaderDefine<T> {
-  colSpan?: number;
+  colSpan?: number | ((col: number, row: number) => number);
   rowSpan?: number;
 }
 
 export interface CellDefine<T> extends ColumnDefine<T> {
-  colSpan?: number;
+  colSpan?: number | ((col: number, row: number) => number);
   rowSpan?: number;
 }
 

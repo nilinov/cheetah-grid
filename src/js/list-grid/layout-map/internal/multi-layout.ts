@@ -15,8 +15,8 @@ import type { CellRange, LayoutObjectId } from "../../../ts-types";
 import { EmptyDataCache } from "./utils";
 
 interface HasSpans {
-  colSpan?: number;
-  rowSpan?: number;
+  colSpan?: number | ((col: number, row: number) => number);
+  rowSpan?: number | ((col: number, row: number) => number);
   width?: number | string;
   minWidth?: number | string;
   maxWidth?: number | string;
@@ -45,14 +45,14 @@ class LayoutObjectGrid<T, D extends HasSpans> {
   constructor(layout: D[][], transform: (d: D, id: LayoutObjectId) => T) {
     layout.forEach((rowLayout, row) => {
       let col = 0;
-      rowLayout.forEach((cell) => {
+      rowLayout.forEach((cell, indexCell) => {
         const id = seqId++;
         const obj = transform(cell, id);
         this.objects.push(obj);
         this.objectMap[id] = obj;
         col = this._findStartCell(col, row);
         const rowSpan = Number(cell.rowSpan ?? 1);
-        const colSpan = Number(cell.colSpan ?? 1);
+        const colSpan = typeof cell.colSpan === 'function' ? Number(cell.colSpan(indexCell, row) ?? 1) : Number(cell.colSpan ?? 1);
         const endRow = row + rowSpan;
         const endCol = col + colSpan;
         for (let rowIndex = row; rowIndex < endRow; rowIndex++) {

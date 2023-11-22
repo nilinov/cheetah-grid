@@ -20232,15 +20232,15 @@ class LayoutObjectGrid {
     this.columnWidths = [];
     layout.forEach((rowLayout, row) => {
       let col = 0;
-      rowLayout.forEach((cell, indexCell) => {
-        var _a, _b, _c;
+      rowLayout.forEach(cell => {
+        var _a, _b;
         const id = seqId++;
         const obj = transform(cell, id);
         this.objects.push(obj);
         this.objectMap[id] = obj;
         col = this._findStartCell(col, row);
         const rowSpan = Number((_a = cell.rowSpan) !== null && _a !== void 0 ? _a : 1);
-        const colSpan = typeof cell.colSpan === 'function' ? Number((_b = cell.colSpan(indexCell, row)) !== null && _b !== void 0 ? _b : 1) : Number((_c = cell.colSpan) !== null && _c !== void 0 ? _c : 1);
+        const colSpan = Number((_b = cell.colSpan) !== null && _b !== void 0 ? _b : 1);
         const endRow = row + rowSpan;
         const endCol = col + colSpan;
         for (let rowIndex = row; rowIndex < endRow; rowIndex++) {

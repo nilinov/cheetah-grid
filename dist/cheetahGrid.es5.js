@@ -12095,15 +12095,19 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
               return;
             }
             if (cell) {
-              grid.fireListeners(DG_EVENT_TYPE_1.DG_EVENT_TYPE.MOUSEDOWN_GRID, cell);
+              // grid.fireListeners(
+              //   DG_EVENT_TYPE.MOUSEDOWN_GRID,
+              //   cell as any
+              // )
             }
             if (eventArgs) {
-              var results = grid.fireListeners(DG_EVENT_TYPE_1.DG_EVENT_TYPE.MOUSEDOWN_CELL, eventArgs);
-              if (utils_1.array.findIndex(results, function (v) {
-                return !v;
-              }) >= 0) {
-                return;
-              }
+              // const results = grid.fireListeners(
+              //   DG_EVENT_TYPE.MOUSEDOWN_CELL,
+              //   eventArgs
+              // );
+              // if (array.findIndex(results, (v) => !v) >= 0) {
+              //   return;
+              // }
             }
             if (getMouseButtons(e) !== 1 &&
             // For mobile safari. If we do not post-process here, the keyboard will not start in Mobile Safari.

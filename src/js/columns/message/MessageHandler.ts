@@ -189,8 +189,8 @@ export class MessageHandler<T> implements Base<T> {
       onSelectMessage(e);
     });
     grid.listen(LG_EVENT_TYPE.FOCUS_GRID, (_e) => {
-      const sel = grid.selection.select;
-      onSelectMessage(sel);
+      // const sel = grid.selection.select;
+      // onSelectMessage(sel);
     });
     grid.listen(LG_EVENT_TYPE.BLUR_GRID, (_e) => {
       this._detach();

@@ -150,8 +150,8 @@ class MessageHandler {
             onSelectMessage(e);
         });
         grid.listen(LG_EVENT_TYPE_1.LG_EVENT_TYPE.FOCUS_GRID, (_e) => {
-            const sel = grid.selection.select;
-            onSelectMessage(sel);
+            // const sel = grid.selection.select;
+            // onSelectMessage(sel);
         });
         grid.listen(LG_EVENT_TYPE_1.LG_EVENT_TYPE.BLUR_GRID, (_e) => {
             this._detach();

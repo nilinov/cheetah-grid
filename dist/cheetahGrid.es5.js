@@ -9317,9 +9317,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
                   onSelectMessage(e);
                 });
-                grid.listen(LG_EVENT_TYPE_1.LG_EVENT_TYPE.FOCUS_GRID, function (_e) {
-                  var sel = grid.selection.select;
-                  onSelectMessage(sel);
+                grid.listen(LG_EVENT_TYPE_1.LG_EVENT_TYPE.FOCUS_GRID, function (_e) {// const sel = grid.selection.select;
+                  // onSelectMessage(sel);
                 });
                 grid.listen(LG_EVENT_TYPE_1.LG_EVENT_TYPE.BLUR_GRID, function (_e) {
                   _this38._detach();

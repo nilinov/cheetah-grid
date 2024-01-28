@@ -16639,7 +16639,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
                 }
               });
               handler.on(input, "focus", function (e) {
-                _this66.fireListeners("focus", e);
+                console.log(e); // this.fireListeners("focus", e);
               });
               handler.on(input, "blur", function (e) {
                 _this66.fireListeners("blur", e);

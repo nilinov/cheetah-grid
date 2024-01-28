@@ -930,9 +930,10 @@ function _moveFocusCell(col, row, shiftKey) {
     }
     const beforeRange = extendRange(this.selection.range);
     const beforeRect = this.getCellRangeRect(beforeRange);
-    this.selection._setFocusCell(col, row, shiftKey);
-    this.makeVisibleCell(col, row);
-    this.focusCell(col, row);
+    console.log(col, row, shiftKey);
+    // this.selection._setFocusCell(col, row, shiftKey);
+    // this.makeVisibleCell(col, row);
+    // this.focusCell(col, row);
     const afterRange = extendRange(this.selection.range);
     const afterRect = this.getCellRangeRect(afterRange);
     if (afterRect.intersection(beforeRect)) {

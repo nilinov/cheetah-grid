@@ -1891,6 +1891,7 @@ class FocusControl extends EventTarget_1.EventTarget {
         });
         handler.on(input, "focus", (e) => {
             console.log(e);
+            console.log('3333333333333333333');
             // this.fireListeners("focus", e);
         });
         handler.on(input, "blur", (e) => {

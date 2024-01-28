@@ -58,7 +58,7 @@
     "build:ts": "rimraf dist-ts && tsc --project ./tsconfig.json",
     "build:webpack": "cross-env NO_UPDATE_NOTIFIER=1 node --openssl-legacy-provider ./node_modules/webpack/bin/webpack.js",
     "build:dts": "dts-bundle --name cheetah-grid --main dist-ts/main.d.ts --out ../dist/index.d.ts",
-    "watch": "cross-env NO_UPDATE_NOTIFIER=1 webpack --watch",
+    "watch": "cross-env NO_UPDATE_NOTIFIER=1 webpack --watch --openssl-legacy-provider",
     "eslint": "eslint . --ext .js,.ts",
     "eslint:fix": "eslint . --fix --ext .js,.ts",
     "stylelint": "stylelint \"**/*.css\"",

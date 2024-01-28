@@ -1449,7 +1449,8 @@ function _bindEvents(this: DrawGrid): void {
     useTouchEnd();
     if (longTouchId) {
       clearTimeout(longTouchId);
-      grid[_].cellSelector.select(e);
+      console.log(e)
+      // grid[_].cellSelector.select(e);
       longTouchId = null;
     }
   });

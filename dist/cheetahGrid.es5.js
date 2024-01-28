@@ -12207,7 +12207,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
             useTouchEnd();
             if (longTouchId) {
               clearTimeout(longTouchId);
-              grid[_].cellSelector.select(e);
+              console.log(e);
+              // grid[_].cellSelector.select(e);
               longTouchId = null;
             }
           });

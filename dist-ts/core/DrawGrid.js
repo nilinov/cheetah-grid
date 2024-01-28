@@ -1047,7 +1047,7 @@ function _bindEvents() {
         const resizeCol = _getResizeColAt(grid, abstractPos.x, abstractPos.y);
         if (resizeCol >= 0 && canResizeColumn(resizeCol)) {
             //幅変更
-            grid[_].columnResizer.start(resizeCol, e);
+            // grid[_].columnResizer.start(resizeCol, e);
         }
         else {
             //選択

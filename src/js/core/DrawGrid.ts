@@ -1323,19 +1323,19 @@ function _bindEvents(this: DrawGrid): void {
       return;
     }
     if (cell){
-      grid.fireListeners(
-        DG_EVENT_TYPE.MOUSEDOWN_GRID,
-        cell as any
-      )
+      // grid.fireListeners(
+      //   DG_EVENT_TYPE.MOUSEDOWN_GRID,
+      //   cell as any
+      // )
     }
     if (eventArgs) {
-      const results = grid.fireListeners(
-        DG_EVENT_TYPE.MOUSEDOWN_CELL,
-        eventArgs
-      );
-      if (array.findIndex(results, (v) => !v) >= 0) {
-        return;
-      }
+      // const results = grid.fireListeners(
+      //   DG_EVENT_TYPE.MOUSEDOWN_CELL,
+      //   eventArgs
+      // );
+      // if (array.findIndex(results, (v) => !v) >= 0) {
+      //   return;
+      // }
     }
     if (
       getMouseButtons(e) !== 1 &&

@@ -1051,7 +1051,7 @@ function _bindEvents() {
         }
         else {
             //選択
-            grid[_].cellSelector.start(e);
+            // grid[_].cellSelector.start(e);
         }
     });
     handler.on(element, "mouseup", (e) => {

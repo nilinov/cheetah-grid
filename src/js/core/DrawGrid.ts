@@ -1350,7 +1350,7 @@ function _bindEvents(this: DrawGrid): void {
       grid[_].columnResizer.start(resizeCol, e);
     } else {
       //選択
-      grid[_].cellSelector.start(e);
+      // grid[_].cellSelector.start(e);
     }
   });
   handler.on(element, "mouseup", (e) => {
